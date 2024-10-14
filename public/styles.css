@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1em;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+#game-mode {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
+  gap: .5em;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-mode button {
+  padding: 1em;
+  border-radius: .5em;
+  font-weight: bold;
+}
+
+.fill {
+  fill: #000;
+}
+
+#letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25em;
+  margin-top: .5em;
+}
+
+#word {
+  display: flex;
+  justify-content: center;
+  gap: .5em;
+}
+
+.letterBtn {
+  aspect-ratio: 1;
+  width: 32px;
+  background-size: 256px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  font-weight: bolder;
+  border: none;
+}
+
+.letterBtn:disabled {
+  filter: brightness(.5);
+}
+
+@media (min-width:768px) {
+  .letterBtn {
+    width: 64px;
+    background-size: 512px;
+  }
+}
+
+.hidde {
+  display: none !important;
+}
