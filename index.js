@@ -2,7 +2,7 @@ import express from 'express';
 import { Server, Socket } from 'socket.io';
 import http from 'http';
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.static('public'));
@@ -49,16 +49,20 @@ const update = (socket) => {
   if (correctLetters.join('') == word || errors == 6) {
     word = '';
     errors = 0;
+    io.disconnectSockets();
   }
 }
 
 /** @param {Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>} socket */
 const onGuess = (socket) => {
   socket.on('guess', letter => {
+    if (letter.length != 1 || !isNaN(letter)) {
+      return socket.disconnect();
+    }
     const player = players.find(e => e.id == socket.id);
-    console.log(`player:${player.name} send: ${letter}`);
+    console.log(`player: ${player.name} send: ${letter}`);
 
-    if (!usedLetters.includes(letter) && errors != 6) {
+    if (!usedLetters.includes(letter) && errors != 6 && word.length != 0) {
       usedLetters.push(letter);
       if (word.search(letter) != -1) {
         const regexp = new RegExp(letter, 'g');
@@ -71,7 +75,6 @@ const onGuess = (socket) => {
       } else {
         errors += 1;
       }
-
       update(socket);
     }
   });
@@ -81,8 +84,14 @@ const onGuess = (socket) => {
 const onDisconnect = (socket) => {
   socket.on('disconnect', () => {
     const player = players.find(e => e.id == socket.id);
+    console.log(`player: ${player?.name} disconnected`);
     players = players.filter(e => e.id != socket.id);
-    console.log(`player:${player.name} disconnected`);
+    if (players.length == 0) {
+      word = '';
+      errors = 0;
+    } else {
+      update(socket);
+    }
   });
 }
 
@@ -90,9 +99,9 @@ const onDisconnect = (socket) => {
 const onJoin = (socket) => {
   socket.on('join', name => {
     const player = new Player(name, socket.id);
-    console.log(`player:${name} connected`);
+    console.log(`player: ${name} connected`);
     players.push(player);
-    socket.emit('join', { players, wordLength: word.length, usedLetters, correctLetters, errors });
+    socket.emit('join', { players, wordLength: word.length });
     update(socket);
   });
 }

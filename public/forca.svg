@@ -1,0 +1,38 @@
+ <svg width="100%" height="175" xmlns="http://www.w3.org/2000/svg">
+      <g id="layer1" transform="translate(-301.03464,12.126403)">
+        <rect style="fill:#000000;fill-rule:evenodd;stroke-width:21.4786;stroke-linecap:round;stroke-linejoin:round"
+          id="rect13" width="8.4666662" height="169.33333" x="308.57272" y="-12.12639" />
+        <rect style="fill:#000000;fill-rule:evenodd;stroke-width:18.601;stroke-linecap:round;stroke-linejoin:round"
+          id="rect14" width="8.4666662" height="127" x="-12.126391" y="-428.03467" transform="rotate(90)" rx="2.5"
+          ry="4" />
+        <rect style="fill:#000000;fill-rule:evenodd;stroke-width:10.7393;stroke-linecap:round;stroke-linejoin:round"
+          id="rect15" width="8.4666662" height="42.333332" x="232.35229" y="-249.50162" transform="rotate(45)" />
+        <rect style="fill:#000000;fill-rule:evenodd;stroke-width:8.00873;stroke-linecap:round;stroke-linejoin:round"
+          id="rect16" width="8.4666662" height="23.542797" x="148.74028" y="-324.57745" transform="rotate(90)" rx="2.5"
+          ry="2.5" />
+        <rect style="fill:#000000;fill-rule:evenodd;stroke-width:8.46581;stroke-linecap:round;stroke-linejoin:round"
+          id="rect17" width="8.4666662" height="26.306757" x="-396.30362" y="-19.883076" transform="scale(-1)" />
+        <rect style="fill:none;fill-rule:evenodd;stroke-width:14.1817;stroke-linecap:round;stroke-linejoin:round"
+          id="rect12" width="56.010967" height="100.27126" x="364.5347" y="14.438696" />
+        <path id="head" fill="transparent" class="man"
+          d="m 392.07028,14.438745 a 14.863256,14.863256 0 0 0 -14.86331,14.863321 14.863256,14.863256 0 0 0 14.86331,14.86331 14.863256,14.863256 0 0 0 14.86331,-14.86331 14.863256,14.863256 0 0 0 -14.86331,-14.863321 z m 0,5.444331 a 9.4188377,9.4188377 0 0 1 9.41858,9.41899 9.4188377,9.4188377 0 0 1 -9.41858,9.41858 9.4188377,9.4188377 0 0 1 -9.41898,-9.41858 9.4188377,9.4188377 0 0 1 9.41898,-9.41899 z" />
+        <rect fill="transparent" class="man"
+          style="fill-rule:evenodd;stroke-width:12.0069;stroke-linecap:round;stroke-linejoin:round" id="body"
+          width="8.4666662" height="52.916668" x="-396.30359" y="-92.166428" transform="scale(-1)" ry="4.2333331"
+          rx="4.2333331" />
+        <rect fill="transparent" class="man"
+          style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="right_arm"
+          width="8.4666662" height="39.6875" x="-317.91583" y="205.33983" transform="rotate(-135)" ry="4.2333331" />
+        <rect fill="transparent" class="man"
+          style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="left_arm"
+          width="8.4666662" height="39.6875" x="236.21307" y="-349.48428"
+          transform="matrix(0.70710678,-0.70710678,-0.70710678,-0.70710678,0,0)" ry="4.2333331" />
+        <rect fill="transparent" class="man"
+          style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="right_leg"
+          width="8.4666662" height="39.6875" x="-341.73703" y="181.51865" transform="rotate(-135)" ry="4.2333331" />
+        <rect fill="transparent" class="man"
+          style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="left_leg"
+          width="8.4666662" height="39.6875" x="212.73949" y="-372.95786"
+          transform="matrix(0.70710678,-0.70710678,-0.70710678,-0.70710678,0,0)" ry="4.2333331" />
+      </g>
+    </svg>

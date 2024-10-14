@@ -10,41 +10,67 @@ body {
 button {
   border: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-#game-mode {
+.game__start-menu {
   display: flex;
   flex-direction: column;
   margin: 1em 0;
-  gap: .5em;
+  gap: 1em;
   justify-content: center;
   align-items: center;
 }
 
-#game-mode button {
+.game__start-menu__button {
   padding: 1em;
   border-radius: .5em;
   font-weight: bold;
 }
 
-.fill {
-  fill: #000;
+.game__result {
+  background-color: rgb(252, 198, 252);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 4px dashed orange;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, .5), 0px 8px 16px rgba(0, 0, 0, .5);
+  padding: .5em;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-#letters {
+.game__result button,
+.game__start-menu__button {
+  background: linear-gradient(aqua, rgb(4, 101, 101));
+  color: yellow;
+  border-radius: .5em;
+  padding: .5em;
+  box-shadow: -4px -4px 4px #ffffff88, 4px 4px 4px rgba(0, 0, 0, .5);
+  transition: 0.2s ease-in-out;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.game__result button:hover,
+.game__start-menu__button:hover {
+  transform: scale(.95);
+}
+
+.letters {
   display: flex;
   flex-wrap: wrap;
   gap: .25em;
   margin-top: .5em;
 }
 
-#word {
+.word {
   display: flex;
   justify-content: center;
   gap: .5em;
 }
 
-.letterBtn {
+.letters__button {
   aspect-ratio: 1;
   width: 32px;
   background-size: 256px;
@@ -54,12 +80,12 @@ button {
   border: none;
 }
 
-.letterBtn:disabled {
+.letters__button:disabled {
   filter: brightness(.5);
 }
 
 @media (min-width:768px) {
-  .letterBtn {
+  .letters__button {
     width: 64px;
     background-size: 512px;
   }
@@ -67,4 +93,8 @@ button {
 
 .hidde {
   display: none !important;
+}
+
+.fill {
+  fill: #000;
 }
