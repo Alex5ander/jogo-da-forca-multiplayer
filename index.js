@@ -2,14 +2,14 @@ import express from 'express';
 import { Server, Socket } from 'socket.io';
 import http from 'http';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 app.use(express.static('public'));
 const server = http.createServer(app);
 const io = new Server(server);
 
-const words = ['BANANA', 'UVA', 'ABACAXI', 'LARANJA', 'PITAIA', 'MELANCIA'];
+const words = ['BANANA', 'UVA', 'ABACAXI', 'LARANJA', 'PITAIA', 'MELANCIA', 'CAQUI'];
 
 class Player {
   constructor(name, id) {
