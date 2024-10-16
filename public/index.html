@@ -42,23 +42,23 @@
     </div>
 
     <div class="game__start-menu" id="start-menu">
-      <button onclick="start()" class="game__start-menu__button">
+      <button class="game__start-menu__button" id="start">
         Jogar Solo
       </button>
-      <button onclick="startMultiplayer()" class="game__start-menu__button">
+      <button class="game__start-menu__button" id="start-multiplayer">
         Jogar Multiplayer
       </button>
     </div>
 
     <div class="game__result hidde" id="result">
       <p></p>
-      <button onclick="resetGame()">Menu</button>
+      <button id="menu">Menu</button>
     </div>
 
     <div class="game__players" id="players"></div>
   </div>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="./script.js"></script>
+  <script type="module" src="./script.js"></script>
 </body>
 
 </html>

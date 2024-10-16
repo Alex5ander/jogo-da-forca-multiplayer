@@ -82,6 +82,7 @@ button {
 
 .letters__button:disabled {
   filter: brightness(.5);
+  cursor: not-allowed;
 }
 
 @media (min-width:768px) {

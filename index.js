@@ -1,15 +1,16 @@
-import express from 'express';
-import { Server, Socket } from 'socket.io';
-import http from 'http';
+const express = require('express');
+const { Server, Socket } = require('socket.io');
+const http = require('http');
+const Game = require('./src/game');
+const SinglePlayer = require('./src/single-player');
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.static('public'));
+app.use(SinglePlayer);
 const server = http.createServer(app);
 const io = new Server(server);
-
-const words = ['BANANA', 'UVA', 'ABACAXI', 'LARANJA', 'PITAIA', 'MELANCIA', 'CAQUI'];
 
 class Player {
   constructor(name, id) {
@@ -18,20 +19,16 @@ class Player {
   }
 }
 
-let errors = 0;
-let word = '';
-let correctLetters = '';
-let usedLetters = [];
 /** @type {Player[]} */
 let players = [];
 
+/** @type {Game} */
+let game;
+
 const newWord = () => {
-  if (word == '') {
-    console.log('new word');
-    word = words[Math.floor(Math.random() * words.length)];
-    correctLetters = '';
-    correctLetters = correctLetters.padStart(word.length).split('');
-    usedLetters = [];
+  if (!game) {
+    console.log('new game');
+    game = new Game();
   }
 }
 
@@ -39,16 +36,14 @@ const newWord = () => {
 const update = (socket) => {
   const player = players.find(e => e.id == socket.id);
   io.emit('update', {
-    worldLength: word.length,
-    players,
-    errors,
-    usedLetters,
-    correctLetters,
-    win: correctLetters.join('') == word ? player.name : null,
+    worldLength: game.word.value.length,
+    errors: game.errors,
+    usedLetters: game.usedLetters,
+    correctLetters: game.correctLetters,
+    win: game.isWin() ? player.name : null,
   });
-  if (correctLetters.join('') == word || errors == 6) {
-    word = '';
-    errors = 0;
+  if (game.isEnd()) {
+    game = null;
     io.disconnectSockets();
   }
 }
@@ -61,22 +56,8 @@ const onGuess = (socket) => {
     }
     const player = players.find(e => e.id == socket.id);
     console.log(`player: ${player.name} send: ${letter}`);
-
-    if (!usedLetters.includes(letter) && errors != 6 && word.length != 0) {
-      usedLetters.push(letter);
-      if (word.search(letter) != -1) {
-        const regexp = new RegExp(letter, 'g');
-        const regexpstringInterator = word.matchAll(regexp);
-        let data;
-        while (!(data = regexpstringInterator.next()).done) {
-          const index = data.value['index'];
-          correctLetters[index] = letter;
-        }
-      } else {
-        errors += 1;
-      }
-      update(socket);
-    }
+    game.useLetter(letter);
+    update(socket);
   });
 }
 
@@ -87,28 +68,27 @@ const onDisconnect = (socket) => {
     console.log(`player: ${player?.name} disconnected`);
     players = players.filter(e => e.id != socket.id);
     if (players.length == 0) {
-      word = '';
-      errors = 0;
+      game = null;
     } else {
-      update(socket);
+      io.emit('playerDisconnect', players);
     }
   });
 }
 
 /**  @param {Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>} socket */
 const onJoin = (socket) => {
-  socket.on('join', name => {
+  socket.on('join', (name, callback) => {
     const player = new Player(name, socket.id);
     console.log(`player: ${name} connected`);
     players.push(player);
-    socket.emit('join', { players, wordLength: word.length });
-    update(socket);
+    callback({ players, length: game.word.value.length, hint: game.word.hint, usedLetters: game.usedLetters, errors: game.errors, correctLetters: game.correctLetters });
+    socket.broadcast.emit('newPlayerJoin', players);
   });
 }
 
 io.on('connection', socket => {
   newWord();
-  onJoin(socket)
+  onJoin(socket);
   onDisconnect(socket);
   onGuess(socket);
 });

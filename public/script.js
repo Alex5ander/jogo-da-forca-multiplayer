@@ -1,12 +1,13 @@
+import { createSocket } from './socket.js';
+
 const wordElement = document.getElementById('word');
 const letterButtons = Array.from(document.getElementsByClassName('letters__button'));
 const playersElements = document.getElementById('players');
 const gameStartMenuElement = document.getElementById('start-menu');
 const gameResultElement = document.getElementById('result');
-
-let socket;
-
-const words = ['BANANA', 'UVA', 'ABACAXI', 'LARANJA', 'PITAIA', 'MELANCIA'];
+const startButton = document.getElementById('start');
+const startMultiplayerButton = document.getElementById('start-multiplayer');
+const menuButton = document.getElementById('menu');
 
 const spritesheets = [
   'spritesheet/blue_spritesheet',
@@ -19,11 +20,7 @@ const spritesheets = [
   'spritesheet/yellow_spritesheet'
 ];
 
-let word = '';
 const letters = 'ABCÇDEFGHIJKLMNOPQRSTUVWXYZ';
-
-/** @type {HTMLElement[]} */
-let subtextures = [];
 
 const resize = () => {
   const mediaQuery = window.innerWidth >= 768;
@@ -44,63 +41,32 @@ const resize = () => {
   })
 }
 
-const checkWin = () => {
-  if (document.getElementsByClassName('correct').length == word.length) {
-    setTimeout(() => {
-      alert('Você venceu!');
-      start();
-    });
+const onLetterClick = async (e) => {
+  try {
+    const letter = e.target.dataset.letter;
+    const { usedLetters, correctLetters, errors, win } = await (await fetch(`/letter/${letter}`)).json();
+    updateGame(usedLetters, correctLetters, errors, win);
+  } catch (error) {
+    console.error(error);
   }
 }
 
-const checkLose = () => {
-  const man = document.querySelectorAll('.man:not(.fill)');
-  if (man.length > 0) {
-    man[0].classList.add('fill');
-    if (man.length == 1) {
-      setTimeout(() => {
-        alert('Você perdeu!');
-        start();
-      });
-    }
-  }
-}
-
-const onLetterClick = (e) => {
-  e.target.disabled = true;
-  const letter = e.target.dataset.letter;
-
-  if (word.search(letter) != -1) {
-    const regexp = new RegExp(letter, 'g');
-    const regexpstringInterator = word.matchAll(regexp);
-    let data;
-    while (!(data = regexpstringInterator.next()).done) {
-      const index = data.value['index'];
-      wordElement.children[index].classList.add('correct');
-      wordElement.children[index].dataset.originalX = e.target.dataset.originalX;
-      wordElement.children[index].dataset.originalY = e.target.dataset.originalY;
-      wordElement.children[index].style.backgroundPosition = e.target.style.backgroundPosition;
-    }
-    checkWin();
-  } else {
-    checkLose();
-  }
-}
-
-const loadSubTextures = async (index) => {
+const loadSubTextures = async () => {
+  const index = Math.floor(Math.random() * spritesheets.length);
   const spritesheet = spritesheets[index];
   const response = await fetch(spritesheet + '.xml');
   const text = await response.text();
   const xml = new DOMParser().parseFromString(text, 'application/xml');
-  const subtextures = Array.from(xml.getElementsByTagName('SubTexture'));
-  return subtextures;
+  const images = Array.from(xml.getElementsByTagName('SubTexture'));
+  return { images, spritesheet };
 }
 
-const createGame = (spritesheet, wordLength, onclick) => {
-  document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'))
+const createGame = async (length) => {
+  document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'));
+  const { images, spritesheet } = await loadSubTextures();
 
   for (let i = 0; i < letters.length; i++) {
-    const letterSubTexture = subtextures.find(e => e.getAttribute('name') == `letter_${letters[i]}.png`);
+    const letterSubTexture = images.find(e => e.getAttribute('name') == `letter_${letters[i]}.png`);
     if (letterSubTexture) {
       let ox = parseInt(letterSubTexture.getAttribute('x'));
       let oy = parseInt(letterSubTexture.getAttribute('y'));
@@ -108,14 +74,13 @@ const createGame = (spritesheet, wordLength, onclick) => {
       letterBtn.dataset.originalX = `${ox}`
       letterBtn.dataset.originalY = `${oy}`;
       letterBtn.style.backgroundImage = `url(${spritesheet}.png)`;
-      letterBtn.onclick = onclick;
       letterBtn.disabled = false;
     }
   }
 
   let html = '';
-  const letterSubTexture = subtextures.find(e => e.getAttribute('name') == `letter.png`);
-  for (let i = 0; i < wordLength; i++) {
+  const letterSubTexture = images.find(e => e.getAttribute('name') == `letter.png`);
+  for (let i = 0; i < length; i++) {
     let ox = parseInt(letterSubTexture.getAttribute('x'));
     let oy = parseInt(letterSubTexture.getAttribute('y'));
     let x = ox / 8;
@@ -138,19 +103,14 @@ const resetGame = () => {
 
 const start = async () => {
   gameStartMenuElement.classList.add('hidde');
-
-  const spriteIndex = Math.floor(Math.random() * spritesheets.length);
-  const spritesheet = spritesheets[spriteIndex];
-  subtextures = await loadSubTextures(spriteIndex);
-
-  word = words[Math.floor(Math.random() * words.length)];
-
-  createGame(spritesheet, word.length, onLetterClick);
+  const word = await (await fetch('/new-game')).json();
+  createGame(word.length);
+  letterButtons.forEach(btn => btn.onclick = onLetterClick);
 }
 
 const updateGame = (usedLetters, correctLetters, errors, win) => {
-  let letterBtnsUsed = letterButtons.filter(e => usedLetters.find(l => l == e.dataset.letter));
-  letterBtnsUsed.forEach(e => { e.disabled = true });
+  let l = letterButtons.filter(e => usedLetters.find(l => l == e.dataset.letter));
+  l.forEach(e => { e.disabled = true });
 
   correctLetters.forEach((e, i) => {
     const letterBtn = letterButtons.find(l => l.dataset.letter == e);
@@ -177,15 +137,18 @@ const updateGame = (usedLetters, correctLetters, errors, win) => {
   }
 }
 
-const onJoin = ({ spritesheet, wordLength, players }) => {
+const updatePlayersList = (players) => {
   playersElements.innerHTML = '';
   players.forEach(player => playersElements.innerHTML += `<p>${player.name}</p>`);
-  createGame(spritesheet, wordLength, (e) => socket.emit('guess', e.target.dataset.letter));
 }
 
-const onUpdate = ({ usedLetters, correctLetters, errors, players, win }) => {
-  playersElements.innerHTML = '';
-  players.forEach(player => playersElements.innerHTML += `<p>${player.name}</p>`);
+const onJoin = async ({ length, players, usedLetters, correctLetters, errors }) => {
+  updatePlayersList(players);
+  await createGame(length);
+  updateGame(usedLetters, correctLetters, errors);
+}
+
+const onUpdate = ({ usedLetters, correctLetters, errors, win }) => {
   updateGame(usedLetters, correctLetters, errors, win);
 }
 
@@ -195,28 +158,26 @@ const startMultiplayer = async () => {
 
   gameStartMenuElement.classList.add('hidde');
 
-  const spriteIndex = Math.floor(Math.random() * spritesheets.length);
-  const spritesheet = spritesheets[spriteIndex];
-  subtextures = await loadSubTextures(spriteIndex);
-
-  socket = io();
-  socket.emit('join', playername);
-  socket.on('join', (data) => onJoin({ ...data, spritesheet }));
-  socket.on('update', onUpdate);
+  const socket = createSocket();
+  socket.join(playername, onJoin);
+  socket.onUpdate(onUpdate);
+  socket.onNewPlayerJoin(updatePlayersList);
+  socket.onPlayerDisconnect(updatePlayersList);
+  letterButtons.forEach(btn => btn.onclick = e => socket.guess(e.target.dataset.letter));
 }
 
 (async () => {
-  const spriteIndex = Math.floor(Math.random() * spritesheets.length);
-  const spritesheet = spritesheets[spriteIndex];
-  subtextures = await loadSubTextures(spriteIndex);
-
   const data = await fetch('./forca.svg');
   const text = await data.text();
   const domParser = new DOMParser();
   const doc = domParser.parseFromString(text, 'image/svg+xml');
   const svg = doc.querySelector("svg");
   document.getElementById('svg').appendChild(svg);
-  createGame(spritesheet, 0, () => { });
+  createGame(0);
 })();
 
 window.addEventListener('resize', resize);
+
+startButton.addEventListener('click', start);
+startMultiplayerButton.addEventListener('click', startMultiplayer);
+menuButton.addEventListener('click', resetGame);
