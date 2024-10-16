@@ -2,12 +2,10 @@ import { createSocket } from './socket.js';
 /** @type {HTMLAudioElement} */
 let music;
 
-const playMusic = async () => {
-  if (!music) {
-    const src = await (await fetch('/music')).text();
-    music = new Audio(src);
+const playMusic = () => {
+  if (music.paused) {
     music.loop = true;
-    music.volume = 0.25;
+    music.volume = 0.05;
     music.play();
   }
 }
@@ -54,12 +52,13 @@ const resize = () => {
 }
 
 const onLetterClick = async (e) => {
+  e.target.disabled = true;
   try {
     const letter = e.target.dataset.letter;
     const { usedLetters, correctLetters, errors, win } = await (await fetch(`/letter/${letter}`)).json();
     updateGame(usedLetters, correctLetters, errors, win);
   } catch (error) {
-    console.error(error);
+    e.target.disabled = false;
   }
 }
 
@@ -183,6 +182,8 @@ const startMultiplayer = async () => {
 }
 
 (async () => {
+  const src = await (await fetch('/music')).text();
+  music = new Audio(src);
   const data = await fetch('./forca.svg');
   const text = await data.text();
   const domParser = new DOMParser();

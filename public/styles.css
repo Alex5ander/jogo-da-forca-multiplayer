@@ -37,13 +37,6 @@ button {
   align-items: center;
 }
 
-.start-menu__button {
-  padding: 1em;
-  border-radius: .5em;
-  font-weight: bold;
-  border: 1px solid;
-}
-
 .result {
   background-color: #fff;
   display: flex;
@@ -57,10 +50,12 @@ button {
 
 .result button,
 .start-menu__button {
+  font-weight: bold;
   color: #000;
   border-radius: .5em;
   padding: .5em;
   transition: 0.2s ease-in-out;
+  border: 1px solid;
 }
 
 .result button:hover,
