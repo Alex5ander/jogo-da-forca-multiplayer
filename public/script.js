@@ -2,6 +2,15 @@ import { createSocket } from './socket.js';
 /** @type {HTMLAudioElement} */
 let music;
 
+const playMusic = async () => {
+  if (!music) {
+    const src = await (await fetch('/music')).text();
+    music = new Audio(src);
+    music.loop = true;
+    music.play();
+  }
+}
+
 const wordElement = document.getElementById('word');
 const letterButtons = Array.from(document.getElementsByClassName('letters__letter'));
 const playersElements = document.getElementById('players');
@@ -64,14 +73,6 @@ const loadSubTextures = async () => {
 }
 
 const createGame = async (length) => {
-
-  if (!music) {
-    const src = await (await fetch('/music')).text();
-    music = new Audio(src);
-    music.loop = true;
-    music.play();
-  }
-
   document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'));
   const { images, spritesheet } = await loadSubTextures();
 
@@ -116,6 +117,7 @@ const start = async () => {
   const word = await (await fetch('/new-game')).json();
   createGame(word.length);
   letterButtons.forEach(btn => btn.onclick = onLetterClick);
+  playMusic();
 }
 
 const updateGame = (usedLetters, correctLetters, errors, win) => {
@@ -175,6 +177,8 @@ const startMultiplayer = async () => {
   socket.onNewPlayerJoin(updatePlayersList);
   socket.onPlayerDisconnect(updatePlayersList);
   letterButtons.forEach(btn => btn.onclick = e => socket.guess(e.target.dataset.letter));
+
+  playMusic();
 }
 
 (async () => {
