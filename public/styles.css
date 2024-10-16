@@ -1,10 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 * {
   box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  user-select: none;
 }
 
 body {
   margin: 0;
   padding: 1em;
+}
+
+p {
+  margin: 0;
 }
 
 button {
@@ -13,55 +23,60 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-.game__start-menu {
+.game {
   display: flex;
   flex-direction: column;
-  margin: 1em 0;
+  gap: 1em;
+}
+
+.start-menu {
+  display: flex;
+  flex-direction: column;
   gap: 1em;
   justify-content: center;
   align-items: center;
 }
 
-.game__start-menu__button {
+.start-menu__button {
   padding: 1em;
   border-radius: .5em;
   font-weight: bold;
+  border: 1px solid;
 }
 
-.game__result {
-  background-color: rgb(252, 198, 252);
+.result {
+  background-color: #fff;
   display: flex;
+  gap: .5em;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 4px dashed orange;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, .5), 0px 8px 16px rgba(0, 0, 0, .5);
   padding: .5em;
   font-weight: bold;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.game__result button,
-.game__start-menu__button {
-  background: linear-gradient(aqua, rgb(4, 101, 101));
-  color: yellow;
+.result button,
+.start-menu__button {
+  color: #000;
   border-radius: .5em;
   padding: .5em;
-  box-shadow: -4px -4px 4px #ffffff88, 4px 4px 4px rgba(0, 0, 0, .5);
   transition: 0.2s ease-in-out;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.game__result button:hover,
-.game__start-menu__button:hover {
-  transform: scale(.95);
+.result button:hover,
+.start-menu__button:hover {
+  transform: scale(1.1);
+}
+
+.result button:active,
+.start-menu__button:active {
+  transform: scale(.9);
 }
 
 .letters {
   display: flex;
   flex-wrap: wrap;
   gap: .25em;
-  margin-top: .5em;
 }
 
 .word {
@@ -70,7 +85,7 @@ button {
   gap: .5em;
 }
 
-.letters__button {
+.letters__letter {
   aspect-ratio: 1;
   width: 32px;
   background-size: 256px;
@@ -80,13 +95,31 @@ button {
   border: none;
 }
 
-.letters__button:disabled {
+.letters__letter:disabled {
   filter: brightness(.5);
   cursor: not-allowed;
 }
 
+.players {
+  padding: .5em;
+  display: flex;
+  gap: .5em;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.players__player {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  border-bottom: 1px solid;
+  padding: .25em;
+  position: relative;
+  text-transform: capitalize;
+}
+
 @media (min-width:768px) {
-  .letters__button {
+  .letters__letter {
     width: 64px;
     background-size: 512px;
   }

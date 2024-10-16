@@ -7,10 +7,12 @@ const SinglePlayer = require('./src/single-player');
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use(express.static('public'));
-app.use(SinglePlayer);
 const server = http.createServer(app);
 const io = new Server(server);
+
+app.use(express.static('public'));
+app.use(SinglePlayer);
+app.get('/music', (_, res) => res.send(process.env.MUSIC || 'none'));
 
 class Player {
   constructor(name, id) {

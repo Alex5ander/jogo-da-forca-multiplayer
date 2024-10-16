@@ -1,7 +1,9 @@
 import { createSocket } from './socket.js';
+/** @type {HTMLAudioElement} */
+let music;
 
 const wordElement = document.getElementById('word');
-const letterButtons = Array.from(document.getElementsByClassName('letters__button'));
+const letterButtons = Array.from(document.getElementsByClassName('letters__letter'));
 const playersElements = document.getElementById('players');
 const gameStartMenuElement = document.getElementById('start-menu');
 const gameResultElement = document.getElementById('result');
@@ -62,6 +64,14 @@ const loadSubTextures = async () => {
 }
 
 const createGame = async (length) => {
+
+  if (!music) {
+    const src = await (await fetch('/music')).text();
+    music = new Audio(src);
+    music.loop = true;
+    music.play();
+  }
+
   document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'));
   const { images, spritesheet } = await loadSubTextures();
 
@@ -86,7 +96,7 @@ const createGame = async (length) => {
     let x = ox / 8;
     let y = oy / 8;
     const style = `background-position:-${x}px -${y}px;background-image: url(${spritesheet}.png);`;
-    html += `<div data-original-x='${ox} 'data-original-y='${oy}' style='${style}'class='letters__button'></div>`;
+    html += `<div data-original-x='${ox} 'data-original-y='${oy}' style='${style}'class='letters__letter'></div>`;
   }
   wordElement.innerHTML = html;
   resize();
@@ -138,8 +148,9 @@ const updateGame = (usedLetters, correctLetters, errors, win) => {
 }
 
 const updatePlayersList = (players) => {
-  playersElements.innerHTML = '';
-  players.forEach(player => playersElements.innerHTML += `<p>${player.name}</p>`);
+  players.length > 0 ? playersElements.classList.remove('hidde') : playersElements.classList.add('hidde');
+  playersElements.innerHTML = `<p style='text-align:center;'>Jogadores</p>`;
+  players.forEach(player => playersElements.innerHTML += `<p class='players__player'>${player.name}</p>`);
 }
 
 const onJoin = async ({ length, players, usedLetters, correctLetters, errors }) => {
@@ -177,7 +188,9 @@ const startMultiplayer = async () => {
 })();
 
 window.addEventListener('resize', resize);
-
 startButton.addEventListener('click', start);
 startMultiplayerButton.addEventListener('click', startMultiplayer);
 menuButton.addEventListener('click', resetGame);
+
+window.addEventListener('keydown', e => (e.ctrlKey == e.shiftKey && e.key == 'I') || e.key == 'F12' && e.preventDefault());
+window.oncontextmenu = e => e.preventDefault();
