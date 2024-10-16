@@ -12,11 +12,9 @@ app.get('/new-game', (_, res) => {
 });
 
 app.get('/letter/:letter', (req, res) => {
-  if (game && !game.isEnd()) {
-    const { letter } = req.params;
-    if (letter.length == 1 && isNaN(letter)) {
-      game.useLetter(letter);
-    }
+  const { letter } = req.params;
+  if (game && !game.isEnd() && letter && letter.length == 1 && isNaN(letter)) {
+    game.useLetter(letter);
     res.json({ usedLetters: game.usedLetters, errors: game.errors, correctLetters: game.correctLetters, win: game.isWin() ? '1' : null });
   } else {
     res.status(404).json({ error: 'Nenhum jogo iniciado' });

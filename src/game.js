@@ -9,17 +9,19 @@ class Game {
   }
   /** @param {string} letter  */
   useLetter(letter) {
-    this.usedLetters.push(letter);
-    if (this.word.value.search(letter) != -1) {
-      const regexp = new RegExp(letter, 'g');
-      const regexpstringInterator = this.word.value.matchAll(regexp);
-      let data;
-      while (!(data = regexpstringInterator.next()).done) {
-        const index = data.value['index'];
-        this.correctLetters[index] = letter;
+    if (!this.isEnd()) {
+      this.usedLetters.push(letter);
+      if (this.word.value.search(letter) != -1) {
+        const regexp = new RegExp(letter, 'g');
+        const regexpstringInterator = this.word.value.matchAll(regexp);
+        let data;
+        while (!(data = regexpstringInterator.next()).done) {
+          const index = data.value['index'];
+          this.correctLetters[index] = letter;
+        }
+      } else {
+        this.errors += 1;
       }
-    } else {
-      this.errors += 1;
     }
   }
   isWin() {
