@@ -7,6 +7,7 @@ const playMusic = async () => {
     const src = await (await fetch('/music')).text();
     music = new Audio(src);
     music.loop = true;
+    music.volume = 0.25;
     music.play();
   }
 }
