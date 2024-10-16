@@ -141,6 +141,7 @@ const updateGame = (usedLetters, correctLetters, errors, win) => {
 
   if (errors == 6 || win) {
     gameResultElement.classList.remove('hidde');
+    letterButtons.forEach(e => e.onclick = null);
   }
   if (errors == 6) {
     name.innerText = 'Fim do jogo!';
