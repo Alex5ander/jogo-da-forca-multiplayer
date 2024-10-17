@@ -1,5 +1,5 @@
 import { createSocket } from './socket.js';
-import { letterButtons, playersElement, startMultiplayerButton, formName, menuButton, startMenuElement } from './elements.js';
+import { playersElement, startMultiplayerButton, formName, menuButton, startMenuElement } from './elements.js';
 import { playMusic, resize, updateUI, createUI, resetUI, showResultMultiplayer } from './utils.js';
 
 const updatePlayersList = (players) => {
@@ -8,9 +8,9 @@ const updatePlayersList = (players) => {
   players.forEach(player => playersElement.innerHTML += `<p class='players__player'>${player.name}</p>`);
 }
 
-const onJoin = async ({ hint, length, players, usedLetters, correctLetters, errors }) => {
+const onJoin = async ({ hint, length, players, usedLetters, correctLetters, errors }, callback) => {
   updatePlayersList(players);
-  await createUI(length, hint);
+  await createUI(length, hint, callback);
   updateUI(usedLetters, correctLetters, errors);
 }
 
@@ -23,11 +23,10 @@ const startMultiplayer = async (name) => {
   startMenuElement.classList.add('hidde');
 
   const socket = createSocket();
-  socket.join(name, onJoin);
+  socket.join(name, (data) => onJoin(data, (e) => socket.guess(e.target.name)));
   socket.onUpdate(onUpdate);
   socket.onNewPlayerJoin(updatePlayersList);
   socket.onPlayerDisconnect(updatePlayersList);
-  [...letterButtons].forEach(btn => btn.onclick = e => socket.guess(e.target.name));
 
   playMusic();
 }

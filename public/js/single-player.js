@@ -1,5 +1,5 @@
 import Game from './game.js';
-import { letterButtons, startMenuElement, startButton, resultElement, nextButton, menuButton } from './elements.js';
+import { letterButtons, startMenuElement, startButton, resultElement, nextButton } from './elements.js';
 import { playMusic, updateUI, createUI, showLose, showWin } from './utils.js';
 
 /** @type {Game} */
@@ -21,7 +21,7 @@ const onLetterClick = async (e) => {
   updateUI(usedLetters, correctLetters, errors);
 
   if (errors == 6 || game.isWin()) {
-    Array.from(letterButtons).forEach(e => e.onclick = null);
+    [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
     resultElement.classList.remove('hidde');
   }
   if (errors == 6) {
@@ -38,8 +38,7 @@ const start = async () => {
   const word = await (await fetch('/random-word')).json();
   startMenuElement.classList.add('hidde');
   game = new Game(word);
-  createUI(word.value.length, word.hint);
-  [...letterButtons].forEach(e => e.onclick = onLetterClick);
+  createUI(word.value.length, word.hint, onLetterClick);
   playMusic();
 }
 

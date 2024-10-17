@@ -1,5 +1,6 @@
 /** buttons */
 const startButton = document.getElementById('start');
+const lettersElement = document.getElementById('letters');
 const letterButtons = document.getElementsByClassName('letters__letter');
 const startMultiplayerButton = document.getElementById('start-multiplayer');
 const menuButton = document.getElementById('menu');
@@ -14,6 +15,7 @@ const formName = document.forms[0];
 const wordElement = document.getElementById('word');
 
 export {
+  lettersElement,
   letterButtons,
   wordElement,
   playersElement,

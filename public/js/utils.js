@@ -1,4 +1,4 @@
-import { wordElement, letterButtons, hintElement, startMenuElement, playersElement, resultElement, menuButton, nextButton } from "./elements.js";
+import { wordElement, letterButtons, hintElement, startMenuElement, playersElement, resultElement, menuButton, nextButton, lettersElement } from "./elements.js";
 /** @type {HTMLAudioElement} */
 let music;
 
@@ -57,7 +57,7 @@ export const resize = () => {
  * @param {number} length
  * @param {string} hint
  */
-export const createUI = async (length, hint) => {
+export const createUI = async (length, hint, onclick) => {
   const letters = 'ABCÇDEFGHIJKLMNOPQRSTUVWXYZ';
   hint ? hintElement.classList.remove('hidde') : hintElement.classList.add('hidde');
   hintElement.innerText = hint ? `Dica: ${hint}` : '';
@@ -75,6 +75,7 @@ export const createUI = async (length, hint) => {
       letterBtn.dataset.originalY = `${oy}`;
       letterBtn.style.backgroundImage = `url(${spritesheet}.png)`;
       letterBtn.disabled = false;
+      letterBtn.onclick = onclick;
     }
   }
 
@@ -88,6 +89,7 @@ export const createUI = async (length, hint) => {
     const style = `background-position:-${x}px -${y}px;background-image: url(${spritesheet}.png);`;
     html += `<div data-original-x='${ox} 'data-original-y='${oy}' style='${style}'class='letters__letter'></div>`;
   }
+  lettersElement.classList.remove('hidde');
   wordElement.classList.remove('hidde');
   wordElement.innerHTML = html;
   resize();
@@ -107,6 +109,7 @@ export const updateUI = (usedLetters, correctLetters, errors) => {
       wordElement.children[i].dataset.originalX = letterBtn.dataset.originalX;
       wordElement.children[i].dataset.originalY = letterBtn.dataset.originalY;
       wordElement.children[i].style.backgroundPosition = letterBtn.style.backgroundPosition;
+      wordElement.children[i].classList.add('shake')
     }
   });
 
@@ -118,7 +121,8 @@ export const updateUI = (usedLetters, correctLetters, errors) => {
 
 export const resetUI = () => {
   document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'));
-  [...letterButtons].forEach(e => { e.disabled = false; e.onclick = null });
+  lettersElement.classList.add('hidde');
+  [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
   startMenuElement.classList.remove('hidde');
   wordElement.innerHTML = '';
   playersElement.innerHTML = '';
