@@ -57,7 +57,9 @@ const onGuess = (socket) => {
       return socket.disconnect();
     }
     const player = players.find(e => e.id == socket.id);
-    console.log(`player: ${player.name} send: ${letter}`);
+    if (player) {
+      console.log(`player: ${player.name} send: ${letter}`);
+    }
     game.useLetter(letter);
     update(socket);
   });
