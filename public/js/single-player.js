@@ -22,7 +22,6 @@ const onLetterClick = async (e) => {
 
   if (errors == 6 || game.isWin()) {
     [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
-    resultElement.classList.remove('hidde');
   }
   if (errors == 6) {
     showLose();

@@ -151,6 +151,7 @@ export const showLose = () => {
 
 /** @param {string} name */
 export const showResultMultiplayer = (name) => {
+  [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
   resultElement.classList.remove('hidde');
   resultElement.children[0].classList.add('hidde')
   resultElement.children[1].classList.add('hidde');
