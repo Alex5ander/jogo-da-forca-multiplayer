@@ -1,18 +1,18 @@
-const express = require('express');
-const { Server, Socket } = require('socket.io');
-const http = require('http');
-const Game = require('./src/game');
-const SinglePlayer = require('./src/single-player');
+import express from 'express';
+import { Server, Socket } from 'socket.io';
+import { createServer } from 'http';
+import Game from './public/js/game.js';
+import words from './words.json' assert { type: 'json'};
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 const io = new Server(server);
 
 app.use(express.static('public'));
-app.use(SinglePlayer);
 app.get('/music', (_, res) => res.send(process.env.MUSIC || 'none'));
+app.get('/random-word', (_, res) => res.json(words[Math.floor(Math.random() * words.length)]));
 
 class Player {
   constructor(name, id) {
@@ -30,7 +30,7 @@ let game;
 const newWord = () => {
   if (!game) {
     console.log('new game');
-    game = new Game();
+    game = new Game(words[Math.floor(Math.random() * words.length)]);
   }
 }
 
@@ -42,7 +42,7 @@ const update = (socket) => {
     errors: game.errors,
     usedLetters: game.usedLetters,
     correctLetters: game.correctLetters,
-    win: game.isWin() ? player.name : null,
+    result: game.isWin() ? `Jogador: ${player.name} venceu!` : game.isEnd() ? 'Fim do jogo!' : null
   });
   if (game.isEnd()) {
     game = null;
@@ -67,14 +67,16 @@ const onGuess = (socket) => {
 const onDisconnect = (socket) => {
   socket.on('disconnect', () => {
     const player = players.find(e => e.id == socket.id);
-    console.log(`player: ${player?.name} disconnected`);
-    players = players.filter(e => e.id != socket.id);
-    if (players.length == 0) {
-      game = null;
-    } else {
+    if (player) {
+      console.log(`player: ${player.name} disconnected`);
+      players = players.filter(e => e.id != socket.id);
+    }
+    if (game && !game.isEnd()) {
+      console.log('update players');
       io.emit('playerDisconnect', players);
     }
-  });
+  }
+  );
 }
 
 /**  @param {Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>} socket */

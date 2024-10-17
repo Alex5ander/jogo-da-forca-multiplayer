@@ -1,11 +1,10 @@
-const words = require('../words.json');
-
-class Game {
-  constructor() {
-    this.word = words[Math.floor(Math.random() * words.length)];
+export default class Game {
+  constructor(word) {
+    this.word = word;
     this.errors = 0;
-    this.correctLetters = Array(this.word.value.length).fill('');
+    this.correctLetters = Array(word.value.length).fill('');
     this.usedLetters = [];
+    this.score = 0;
   }
   /** @param {string} letter  */
   useLetter(letter) {
@@ -24,6 +23,14 @@ class Game {
       }
     }
   }
+  /** @param {{value:string; hint:string}} word  */
+  restart(word) {
+    this.score += 1;
+    this.word = word;
+    this.errors = 0;
+    this.correctLetters = Array(word.value.length).fill('');
+    this.usedLetters = [];
+  }
   isWin() {
     return this.correctLetters.join('') == this.word.value;
   }
@@ -31,5 +38,3 @@ class Game {
     return this.correctLetters.join('') == this.word.value || this.errors == 6
   }
 }
-
-module.exports = Game;

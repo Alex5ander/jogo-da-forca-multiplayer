@@ -11,6 +11,10 @@
 body {
   margin: 0;
   padding: 1em;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 p {
@@ -21,12 +25,13 @@ button {
   border: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  border: 1px solid;
 }
 
-.game {
+.form-name {
   display: flex;
-  flex-direction: column;
   gap: 1em;
+  margin: 0 auto;
 }
 
 .start-menu {
@@ -48,23 +53,19 @@ button {
   font-weight: bold;
 }
 
-.result button,
-.start-menu__button {
+.primary-button {
   font-weight: bold;
   color: #000;
   border-radius: .5em;
   padding: .5em;
   transition: 0.2s ease-in-out;
-  border: 1px solid;
 }
 
-.result button:hover,
-.start-menu__button:hover {
+.primary-button:hover {
   transform: scale(1.1);
 }
 
-.result button:active,
-.start-menu__button:active {
+.primary-button:active {
   transform: scale(.9);
 }
 
@@ -78,6 +79,10 @@ button {
   display: flex;
   justify-content: center;
   gap: .5em;
+}
+
+.hint {
+  font-weight: bold;
 }
 
 .letters__letter {
@@ -101,6 +106,8 @@ button {
   gap: .5em;
   flex-direction: column;
   font-weight: bold;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .players__player {

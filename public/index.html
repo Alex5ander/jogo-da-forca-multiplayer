@@ -1,65 +1,80 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang='pt-br'>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Jogo da forca">
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta name='description' content='Jogo da forca'>
   <title>Jogo da forca</title>
-  <link href="./styles.css" rel="stylesheet">
+  <link href='./styles.css' rel='stylesheet'>
 </head>
 
 <body>
-  <div id="game" class="game">
-    <div id="svg"></div>
-    <div class="word" id="word"></div>
-    <div class="letters">
-      <button aria-label='A' data-letter='A' class='letters__letter'></button>
-      <button aria-label='B' data-letter='B' class='letters__letter'></button>
-      <button aria-label='C' data-letter='C' class='letters__letter'></button>
-      <button aria-label='D' data-letter='D' class='letters__letter'></button>
-      <button aria-label='E' data-letter='E' class='letters__letter'></button>
-      <button aria-label='F' data-letter='F' class='letters__letter'></button>
-      <button aria-label='G' data-letter='G' class='letters__letter'></button>
-      <button aria-label='H' data-letter='H' class='letters__letter'></button>
-      <button aria-label='I' data-letter='I' class='letters__letter'></button>
-      <button aria-label='J' data-letter='J' class='letters__letter'></button>
-      <button aria-label='K' data-letter='K' class='letters__letter'></button>
-      <button aria-label='L' data-letter='L' class='letters__letter'></button>
-      <button aria-label='M' data-letter='M' class='letters__letter'></button>
-      <button aria-label='N' data-letter='N' class='letters__letter'></button>
-      <button aria-label='O' data-letter='O' class='letters__letter'></button>
-      <button aria-label='P' data-letter='P' class='letters__letter'></button>
-      <button aria-label='Q' data-letter='Q' class='letters__letter'></button>
-      <button aria-label='R' data-letter='R' class='letters__letter'></button>
-      <button aria-label='S' data-letter='S' class='letters__letter'></button>
-      <button aria-label='T' data-letter='T' class='letters__letter'></button>
-      <button aria-label='U' data-letter='U' class='letters__letter'></button>
-      <button aria-label='V' data-letter='V' class='letters__letter'></button>
-      <button aria-label='W' data-letter='W' class='letters__letter'></button>
-      <button aria-label='X' data-letter='X' class='letters__letter'></button>
-      <button aria-label='Y' data-letter='Y' class='letters__letter'></button>
-      <button aria-label='Z' data-letter='Z' class='letters__letter'></button>
-    </div>
 
-    <div class='start-menu' id='start-menu'>
-      <button class='start-menu__button' id='start'>
-        Jogar Solo
-      </button>
-      <button class='start-menu__button' id='start-multiplayer'>
-        Jogar Multiplayer
-      </button>
-    </div>
+  <div id='svg'></div>
 
-    <div class='players hidde' id='players'></div>
+  <div class='word hidde' id='word'></div>
 
-    <div class='result hidde' id='result'>
-      <p></p>
-      <button id='menu'>Menu</button>
-    </div>
+  <div class='hint hidde' id='hint'></div>
+
+  <div class='letters'>
+    <button aria-label='A' name='A' class='letters__letter'></button>
+    <button aria-label='B' name='B' class='letters__letter'></button>
+    <button aria-label='C' name='C' class='letters__letter'></button>
+    <button aria-label='D' name='D' class='letters__letter'></button>
+    <button aria-label='E' name='E' class='letters__letter'></button>
+    <button aria-label='F' name='F' class='letters__letter'></button>
+    <button aria-label='G' name='G' class='letters__letter'></button>
+    <button aria-label='H' name='H' class='letters__letter'></button>
+    <button aria-label='I' name='I' class='letters__letter'></button>
+    <button aria-label='J' name='J' class='letters__letter'></button>
+    <button aria-label='K' name='K' class='letters__letter'></button>
+    <button aria-label='L' name='L' class='letters__letter'></button>
+    <button aria-label='M' name='M' class='letters__letter'></button>
+    <button aria-label='N' name='N' class='letters__letter'></button>
+    <button aria-label='O' name='O' class='letters__letter'></button>
+    <button aria-label='P' name='P' class='letters__letter'></button>
+    <button aria-label='Q' name='Q' class='letters__letter'></button>
+    <button aria-label='R' name='R' class='letters__letter'></button>
+    <button aria-label='S' name='S' class='letters__letter'></button>
+    <button aria-label='T' name='T' class='letters__letter'></button>
+    <button aria-label='U' name='U' class='letters__letter'></button>
+    <button aria-label='V' name='V' class='letters__letter'></button>
+    <button aria-label='W' name='W' class='letters__letter'></button>
+    <button aria-label='X' name='X' class='letters__letter'></button>
+    <button aria-label='Y' name='Y' class='letters__letter'></button>
+    <button aria-label='Z' name='Z' class='letters__letter'></button>
   </div>
+
+  <form class='form-name hidde'>
+    <input name='name' type='text' placeholder='Digite seu nome'>
+    <button class='primary-button' type='submit'>Jogar</button>
+    <button class='primary-button' type='reset'>X</button>
+  </form>
+
+  <div class='start-menu' id='start-menu'>
+    <button class='primary-button' id='start'>
+      Jogar Solo
+    </button>
+    <button class='primary-button' id='start-multiplayer'>
+      Jogar Multiplayer
+    </button>
+  </div>
+
+  <div class='result hidde' id="result">
+    <p class="hidde">Fim do jogo!</p>
+    <p class="hidde">Você venceu!</p>
+    <p class="hidde">...</p>
+
+    <button id='menu' class='primary-button hidde'>menu</button>
+    <button id='next' class='primary-button hidde'>Próxima</button>
+  </div>
+
+  <div class='players hidde' id='players'></div>
+
   <script src='/socket.io/socket.io.js'></script>
-  <script type='module' src='./script.js'></script>
+  <script type='module' src='./js/single-player.js'></script>
+  <script type='module' src='./js/script.js'></script>
 </body>
 
 </html>
