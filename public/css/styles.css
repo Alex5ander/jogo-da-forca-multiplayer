@@ -71,6 +71,15 @@ button {
   align-items: center;
 }
 
+.result-overlay {
+  background-color: #00000088;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .result {
   background-color: #fff;
   display: flex;
@@ -80,9 +89,6 @@ button {
   align-items: center;
   padding: .5em;
   font-weight: bold;
-  width: max-content;
-  height: max-content;
-  position: fixed;
   inset: 0;
   margin: auto;
 }

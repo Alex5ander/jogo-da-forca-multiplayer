@@ -14,6 +14,11 @@ const hintElement = document.getElementById('hint');
 const formName = document.forms[0];
 const wordElement = document.getElementById('word');
 
+/** text */
+const gameOverText = document.getElementById('game-over');
+const youWinText = document.getElementById('you-win');
+const playerWinText = document.getElementById('player-win');
+
 export {
   lettersElement,
   letterButtons,
@@ -21,6 +26,9 @@ export {
   playersElement,
   startMenuElement,
   resultElement,
+  gameOverText,
+  youWinText,
+  playerWinText,
   menuButton,
   nextButton,
   startButton,

@@ -1,4 +1,4 @@
-import { wordElement, letterButtons, hintElement, startMenuElement, playersElement, resultElement, menuButton, nextButton, lettersElement } from "./elements.js";
+import { wordElement, letterButtons, hintElement, startMenuElement, playersElement, resultElement, menuButton, nextButton, lettersElement, youWinText, gameOverText, playerWinText } from "./elements.js";
 /** @type {HTMLAudioElement} */
 let music;
 
@@ -137,21 +137,24 @@ export const resetUI = () => {
   hintElement.classList.add('hidde');
   wordElement.classList.add('hidde');
   resultElement.classList.add('hidde');
-  [...resultElement.children].forEach(e => e.classList.add('hidde'));
 }
 
 export const showWin = () => {
   resultElement.classList.remove('hidde');
-  resultElement.children[0].classList.add('hidde')
-  resultElement.children[1].classList.remove('hidde');
+  youWinText.classList.remove('hidde');
+  gameOverText.classList.add('hidde');
+  playerWinText.classList.add('hidde');
+
   menuButton.classList.add('hidde');
   nextButton.classList.remove('hidde');
 }
 
 export const showLose = () => {
   resultElement.classList.remove('hidde');
-  resultElement.children[0].classList.remove('hidde')
-  resultElement.children[1].classList.add('hidde');
+  youWinText.classList.add('hidde');
+  gameOverText.classList.remove('hidde');
+  playerWinText.classList.add('hidde');
+
   menuButton.classList.remove('hidde');
   nextButton.classList.add('hidde');
 }
@@ -161,10 +164,10 @@ export const showLose = () => {
 export const showResultMultiplayer = (name) => {
   [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
   resultElement.classList.remove('hidde');
-  resultElement.children[0].classList.add('hidde')
-  resultElement.children[1].classList.add('hidde');
-  resultElement.children[2].classList.remove('hidde');
-  resultElement.children[2].innerText = name;
+  youWinText.classList.add('hidde');
+  gameOverText.classList.add('hidde');
+  playerWinText.classList.remove('hidde');
+  playerWinText.innerText = name;
   menuButton.classList.remove('hidde');
   nextButton.classList.add('hidde');
 }

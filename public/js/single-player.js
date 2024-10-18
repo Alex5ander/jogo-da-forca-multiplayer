@@ -8,7 +8,6 @@ let score = 0;
 
 const next = () => {
   resultElement.classList.add('hidde');
-  [...resultElement.children].forEach(e => e.classList.add('hidde'));
   start();
 }
 
