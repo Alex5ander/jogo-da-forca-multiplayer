@@ -1,6 +1,6 @@
 import { createSocket } from './socket.js';
 import { playersElement, startMultiplayerButton, formName, menuButton, startMenuElement } from './elements.js';
-import { playMusic, resize, updateUI, createUI, resetUI, showResultMultiplayer } from './utils.js';
+import { playMusic, resize, updateUI, createUI, resetUI, showResultMultiplayer, loadAssets } from './utils.js';
 
 const updatePlayersList = (players) => {
   players.length > 0 ? playersElement.classList.remove('hidde') : playersElement.classList.add('hidde');
@@ -32,12 +32,13 @@ const startMultiplayer = async (name) => {
 }
 
 (async () => {
+  await loadAssets();
   const data = await fetch('./forca.svg');
   const text = await data.text();
   const domParser = new DOMParser();
   const doc = domParser.parseFromString(text, 'image/svg+xml');
   const svg = doc.querySelector("svg");
-  document.getElementById('svg').appendChild(svg);
+  document.body.insertBefore(svg, document.body.childNodes[0])
 })();
 
 const onStartMultiplayerClick = () => {

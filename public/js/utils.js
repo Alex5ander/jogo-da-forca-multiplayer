@@ -13,19 +13,27 @@ const spritesheets = [
   'spritesheet/yellow_spritesheet'
 ];
 
-const loadSubTextures = async () => {
-  const index = Math.floor(Math.random() * spritesheets.length);
-  const spritesheet = spritesheets[index];
-  const response = await fetch(spritesheet + '.xml');
-  const text = await response.text();
-  const xml = new DOMParser().parseFromString(text, 'application/xml');
-  const images = Array.from(xml.getElementsByTagName('SubTexture'));
-  return { images, spritesheet };
-}
+let subtextures = [];
 
-export const playMusic = async () => {
+export const loadAssets = async () => {
   const src = await (await fetch('/music')).text();
   music = new Audio(src);
+
+  const loadSpritesheet = async (spritesheet) => {
+    const response = await fetch(spritesheet + '.xml');
+    const text = await response.text();
+    const xml = new DOMParser().parseFromString(text, 'application/xml');
+    const images = Array.from(xml.getElementsByTagName('SubTexture'));
+    return images;
+  };
+
+  await Promise.all(spritesheets.map(async (spritesheet) => {
+    const images = await loadSpritesheet(spritesheet);
+    subtextures.push({ images, spritesheet });
+  }));
+};
+
+export const playMusic = async () => {
   if (music.paused) {
     music.loop = true;
     music.volume = 0.05;
@@ -63,7 +71,7 @@ export const createUI = async (length, hint, onclick) => {
   hintElement.innerText = hint ? `Dica: ${hint}` : '';
 
   document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'));
-  const { images, spritesheet } = await loadSubTextures();
+  const { images, spritesheet } = subtextures[Math.floor(Math.random() * subtextures.length)];
 
   for (let i = 0; i < letters.length; i++) {
     const letterSubTexture = images.find(e => e.getAttribute('name') == `letter_${letters[i]}.png`);

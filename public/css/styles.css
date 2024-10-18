@@ -8,11 +8,8 @@
   user-select: none;
 }
 
-#svg {
+svg {
   margin: 0 auto;
-}
-
-#svg svg {
   width: 100%;
 }
 
@@ -83,6 +80,11 @@ button {
   align-items: center;
   padding: .5em;
   font-weight: bold;
+  width: max-content;
+  height: max-content;
+  position: fixed;
+  inset: 0;
+  margin: auto;
 }
 
 .primary-button {
@@ -163,7 +165,7 @@ button {
     background-size: 512px;
   }
 
-  #svg svg {
+  svg {
     width: auto;
   }
 }
