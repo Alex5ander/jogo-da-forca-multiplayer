@@ -77,8 +77,10 @@ const onDisconnect = (socket) => {
       console.log('update players');
       io.emit('playerDisconnect', players);
     }
-  }
-  );
+    if (players.length == 0) {
+      game = null;
+    }
+  });
 }
 
 /**  @param {Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>} socket */
@@ -87,8 +89,9 @@ const onJoin = (socket) => {
     const player = new Player(name, socket.id);
     console.log(`player: ${name} connected`);
     players.push(player);
-    callback({ players, length: game.word.value.length, hint: game.word.hint, usedLetters: game.usedLetters, errors: game.errors, correctLetters: game.correctLetters });
-    socket.broadcast.emit('newPlayerJoin', players);
+    const playerNames = players.map(({ name }) => name);
+    callback({ players: playerNames, length: game.word.value.length, hint: game.word.hint, usedLetters: game.usedLetters, errors: game.errors, correctLetters: game.correctLetters });
+    socket.broadcast.emit('newPlayerJoin', playerNames);
   });
 }
 

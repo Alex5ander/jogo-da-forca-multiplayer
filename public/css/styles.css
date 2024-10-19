@@ -6,24 +6,30 @@
   font-optical-sizing: auto;
   font-style: normal;
   user-select: none;
-}
-
-svg {
-  margin: 0 auto;
-  width: 100%;
+  --container-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --menu-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 body {
   margin: 0;
-  padding: 1em;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
 }
 
 p {
   margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  height: 100vh;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 button {
@@ -69,15 +75,19 @@ button {
   gap: 1em;
   justify-content: center;
   align-items: center;
+  box-shadow: var(--container-shadow);
+  padding: 1em;
+  background-color: #fff;
 }
 
-.result-overlay {
+.overlay {
   background-color: #00000088;
   position: fixed;
   inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
 .result {
@@ -99,6 +109,7 @@ button {
   border-radius: .5em;
   padding: .5em;
   transition: 0.2s ease-in-out;
+  box-shadow: var(--menu-shadow);
 }
 
 .primary-button:hover {
@@ -109,23 +120,33 @@ button {
   transform: scale(.9);
 }
 
-.letters {
+.word {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: .25em;
 }
 
-.word {
-  display: flex;
-  justify-content: center;
-  gap: .5em;
+.word div {
+  flex: none;
 }
 
 .hint {
   font-weight: bold;
+  box-shadow: var(--container-shadow);
+  padding: 1em;
 }
 
-.letters__letter {
+.keyboard {
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25em;
+  box-shadow: var(--container-shadow);
+  padding: 1em;
+}
+
+.letter {
   aspect-ratio: 1;
   width: 32px;
   background-size: 256px;
@@ -136,11 +157,11 @@ button {
   transition: transform 0.2s ease-in-out;
 }
 
-.letters__letter:not(:disabled):hover {
+.letter:not(:disabled):hover {
   transform: scale(1.05);
 }
 
-.letters__letter:disabled {
+.letter:disabled {
   filter: brightness(.5);
   cursor: not-allowed;
 }
@@ -153,26 +174,33 @@ button {
   font-weight: bold;
   max-height: 100%;
   overflow: auto;
+  box-shadow: var(--container-shadow);
+  /* position: fixed; */
+  left: 0;
+  top: 0;
+  background-color: #fff;
 }
 
 .players__player {
   display: flex;
   gap: 1em;
   align-items: center;
-  border-bottom: 1px solid;
-  padding: .25em;
+  padding: .25em .5em;
   position: relative;
   text-transform: capitalize;
+  background-color: #3792fd;
+  color: #fff;
+  box-shadow: var(--menu-shadow);
 }
 
 @media (min-width:768px) {
-  .letters__letter {
+  .letter {
     width: 64px;
     background-size: 512px;
   }
 
-  svg {
-    width: auto;
+  #hangman {
+    margin: auto;
   }
 }
 

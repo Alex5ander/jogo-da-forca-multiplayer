@@ -10,68 +10,114 @@
 </head>
 
 <body>
+  <div class="container">
+    <div class="game">
+      <svg id="hangman" height="175" xmlns="http://www.w3.org/2000/svg">
+        <g id="layer1" transform="translate(-301.03464,12.126403)">
+          <rect style="fill:#000000;fill-rule:evenodd;stroke-width:21.4786;stroke-linecap:round;stroke-linejoin:round"
+            id="rect13" width="8.4666662" height="169.33333" x="308.57272" y="-12.12639" />
+          <rect style="fill:#000000;fill-rule:evenodd;stroke-width:18.601;stroke-linecap:round;stroke-linejoin:round"
+            id="rect14" width="8.4666662" height="127" x="-12.126391" y="-428.03467" transform="rotate(90)" rx="2.5"
+            ry="4" />
+          <rect style="fill:#000000;fill-rule:evenodd;stroke-width:10.7393;stroke-linecap:round;stroke-linejoin:round"
+            id="rect15" width="8.4666662" height="42.333332" x="232.35229" y="-249.50162" transform="rotate(45)" />
+          <rect style="fill:#000000;fill-rule:evenodd;stroke-width:8.00873;stroke-linecap:round;stroke-linejoin:round"
+            id="rect16" width="8.4666662" height="23.542797" x="148.74028" y="-324.57745" transform="rotate(90)"
+            rx="2.5" ry="2.5" />
+          <rect style="fill:#000000;fill-rule:evenodd;stroke-width:8.46581;stroke-linecap:round;stroke-linejoin:round"
+            id="rect17" width="8.4666662" height="26.306757" x="-396.30362" y="-19.883076" transform="scale(-1)" />
+          <rect style="fill:none;fill-rule:evenodd;stroke-width:14.1817;stroke-linecap:round;stroke-linejoin:round"
+            id="rect12" width="56.010967" height="100.27126" x="364.5347" y="14.438696" />
+          <path id="head" fill="transparent" class="man"
+            d="m 392.07028,14.438745 a 14.863256,14.863256 0 0 0 -14.86331,14.863321 14.863256,14.863256 0 0 0 14.86331,14.86331 14.863256,14.863256 0 0 0 14.86331,-14.86331 14.863256,14.863256 0 0 0 -14.86331,-14.863321 z m 0,5.444331 a 9.4188377,9.4188377 0 0 1 9.41858,9.41899 9.4188377,9.4188377 0 0 1 -9.41858,9.41858 9.4188377,9.4188377 0 0 1 -9.41898,-9.41858 9.4188377,9.4188377 0 0 1 9.41898,-9.41899 z" />
+          <rect fill="transparent" class="man"
+            style="fill-rule:evenodd;stroke-width:12.0069;stroke-linecap:round;stroke-linejoin:round" id="body"
+            width="8.4666662" height="52.916668" x="-396.30359" y="-92.166428" transform="scale(-1)" ry="4.2333331"
+            rx="4.2333331" />
+          <rect fill="transparent" class="man"
+            style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="right_arm"
+            width="8.4666662" height="39.6875" x="-317.91583" y="205.33983" transform="rotate(-135)" ry="4.2333331" />
+          <rect fill="transparent" class="man"
+            style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="left_arm"
+            width="8.4666662" height="39.6875" x="236.21307" y="-349.48428"
+            transform="matrix(0.70710678,-0.70710678,-0.70710678,-0.70710678,0,0)" ry="4.2333331" />
+          <rect fill="transparent" class="man"
+            style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="right_leg"
+            width="8.4666662" height="39.6875" x="-341.73703" y="181.51865" transform="rotate(-135)" ry="4.2333331" />
+          <rect fill="transparent" class="man"
+            style="fill-rule:evenodd;stroke-width:10.3982;stroke-linecap:round;stroke-linejoin:round" id="left_leg"
+            width="8.4666662" height="39.6875" x="212.73949" y="-372.95786"
+            transform="matrix(0.70710678,-0.70710678,-0.70710678,-0.70710678,0,0)" ry="4.2333331" />
+        </g>
+      </svg>
 
-  <div class='word hidde' id='word'></div>
+      <div class='word hidde' id='word'></div>
 
-  <div class='hint hidde' id='hint'></div>
+      <div class='hint hidde' id='hint'></div>
 
-  <div class='letters hidde' id="letters">
-    <button aria-label='A' name='A' class='letters__letter'></button>
-    <button aria-label='B' name='B' class='letters__letter'></button>
-    <button aria-label='C' name='C' class='letters__letter'></button>
-    <button aria-label='D' name='D' class='letters__letter'></button>
-    <button aria-label='E' name='E' class='letters__letter'></button>
-    <button aria-label='F' name='F' class='letters__letter'></button>
-    <button aria-label='G' name='G' class='letters__letter'></button>
-    <button aria-label='H' name='H' class='letters__letter'></button>
-    <button aria-label='I' name='I' class='letters__letter'></button>
-    <button aria-label='J' name='J' class='letters__letter'></button>
-    <button aria-label='K' name='K' class='letters__letter'></button>
-    <button aria-label='L' name='L' class='letters__letter'></button>
-    <button aria-label='M' name='M' class='letters__letter'></button>
-    <button aria-label='N' name='N' class='letters__letter'></button>
-    <button aria-label='O' name='O' class='letters__letter'></button>
-    <button aria-label='P' name='P' class='letters__letter'></button>
-    <button aria-label='Q' name='Q' class='letters__letter'></button>
-    <button aria-label='R' name='R' class='letters__letter'></button>
-    <button aria-label='S' name='S' class='letters__letter'></button>
-    <button aria-label='T' name='T' class='letters__letter'></button>
-    <button aria-label='U' name='U' class='letters__letter'></button>
-    <button aria-label='V' name='V' class='letters__letter'></button>
-    <button aria-label='W' name='W' class='letters__letter'></button>
-    <button aria-label='X' name='X' class='letters__letter'></button>
-    <button aria-label='Y' name='Y' class='letters__letter'></button>
-    <button aria-label='Z' name='Z' class='letters__letter'></button>
+      <div class='keyboard hidde' id="keyboard">
+        <button aria-label='A' name='A' class='letter'></button>
+        <button aria-label='B' name='B' class='letter'></button>
+        <button aria-label='C' name='C' class='letter'></button>
+        <button aria-label='D' name='D' class='letter'></button>
+        <button aria-label='E' name='E' class='letter'></button>
+        <button aria-label='F' name='F' class='letter'></button>
+        <button aria-label='G' name='G' class='letter'></button>
+        <button aria-label='H' name='H' class='letter'></button>
+        <button aria-label='I' name='I' class='letter'></button>
+        <button aria-label='J' name='J' class='letter'></button>
+        <button aria-label='K' name='K' class='letter'></button>
+        <button aria-label='L' name='L' class='letter'></button>
+        <button aria-label='M' name='M' class='letter'></button>
+        <button aria-label='N' name='N' class='letter'></button>
+        <button aria-label='O' name='O' class='letter'></button>
+        <button aria-label='P' name='P' class='letter'></button>
+        <button aria-label='Q' name='Q' class='letter'></button>
+        <button aria-label='R' name='R' class='letter'></button>
+        <button aria-label='S' name='S' class='letter'></button>
+        <button aria-label='T' name='T' class='letter'></button>
+        <button aria-label='U' name='U' class='letter'></button>
+        <button aria-label='V' name='V' class='letter'></button>
+        <button aria-label='W' name='W' class='letter'></button>
+        <button aria-label='X' name='X' class='letter'></button>
+        <button aria-label='Y' name='Y' class='letter'></button>
+        <button aria-label='Z' name='Z' class='letter'></button>
+      </div>
+    </div>
+
+    <div class='players hidde' id='players'></div>
   </div>
 
-  <form class='form-name hidde'>
-    <input name='name' type='text' placeholder='Digite seu nome'>
-    <button class='primary-button' type='submit'>Jogar</button>
-    <button class='primary-button' type='reset'>X</button>
-  </form>
-
-  <div class='start-menu' id='start-menu'>
-    <button class='primary-button' id='start'>
-      Jogar Solo
-    </button>
-    <button class='primary-button' id='start-multiplayer'>
-      Jogar Multiplayer
-    </button>
+  <div class="overlay" id='start-menu'>
+    <div class='start-menu'>
+      <h1>Jogo da forca</h1>
+      <button class='primary-button' id='start'>
+        Jogar Solo
+      </button>
+      <button class='primary-button' id='start-multiplayer'>
+        Jogar Multiplayer
+      </button>
+    </div>
   </div>
 
-  <div class="result-overlay hidde" id="result">
+  <div class="overlay hidde" id="form-container">
+    <form class='form-name' id="form-name">
+      <input name='name' type='text' placeholder='Digite seu nome'>
+      <button class='primary-button' type='submit'>Jogar</button>
+      <button class='primary-button' type='reset'>X</button>
+    </form>
+  </div>
+
+  <div class="overlay hidde" id="result">
     <div class='result'>
       <p class="hidde" id="game-over">Fim do jogo!</p>
       <p class="hidde" id="you-win">Você venceu!</p>
       <p class="hidde" id="player-win">...</p>
 
       <button id='menu' class='primary-button hidde'>menu</button>
-      <button id='next' class='primary-button hidde'>Próxima</button>
+      <button id='next' class='primary-button hidde'>Próxima palavra</button>
     </div>
   </div>
-
-  <div class='players hidde' id='players'></div>
-
   <script src='/socket.io/socket.io.js'></script>
   <script type='module' src='./js/single-player.js'></script>
   <script type='module' src='./js/script.js'></script>

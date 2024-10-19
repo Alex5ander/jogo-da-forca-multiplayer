@@ -19,7 +19,7 @@ const onLetterClick = async (e) => {
   const { usedLetters, correctLetters, errors } = game;
   updateUI(usedLetters, correctLetters, errors);
 
-  if (errors == 6 || game.isWin()) {
+  if (game.isEnd()) {
     [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
   }
   if (errors == 6) {

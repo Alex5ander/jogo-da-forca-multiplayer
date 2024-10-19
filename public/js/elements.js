@@ -1,17 +1,18 @@
 /** buttons */
 const startButton = document.getElementById('start');
-const lettersElement = document.getElementById('letters');
-const letterButtons = document.getElementsByClassName('letters__letter');
+const keyboard = document.getElementById('keyboard');
+const letterButtons = document.getElementsByClassName('letter');
 const startMultiplayerButton = document.getElementById('start-multiplayer');
 const menuButton = document.getElementById('menu');
 const nextButton = document.getElementById('next');
 
 /** containers */
-const playersElement = document.getElementById('players');
+const playerElements = document.getElementById('players');
 const startMenuElement = document.getElementById('start-menu');
 const resultElement = document.getElementById('result');
 const hintElement = document.getElementById('hint');
-const formName = document.forms[0];
+const formContainer = document.getElementById('form-container');
+const formName = document.getElementById('form-name');
 const wordElement = document.getElementById('word');
 
 /** text */
@@ -20,10 +21,10 @@ const youWinText = document.getElementById('you-win');
 const playerWinText = document.getElementById('player-win');
 
 export {
-  lettersElement,
+  keyboard,
   letterButtons,
   wordElement,
-  playersElement,
+  playerElements,
   startMenuElement,
   resultElement,
   gameOverText,
@@ -34,5 +35,6 @@ export {
   startButton,
   startMultiplayerButton,
   hintElement,
+  formContainer,
   formName,
 }

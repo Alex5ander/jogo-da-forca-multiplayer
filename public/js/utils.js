@@ -1,4 +1,4 @@
-import { wordElement, letterButtons, hintElement, startMenuElement, playersElement, resultElement, menuButton, nextButton, lettersElement, youWinText, gameOverText, playerWinText } from "./elements.js";
+import { wordElement, letterButtons, hintElement, startMenuElement, playerElements, resultElement, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText } from "./elements.js";
 /** @type {HTMLAudioElement} */
 let music;
 
@@ -66,7 +66,7 @@ export const resize = () => {
  * @param {string} hint
  */
 export const createUI = async (length, hint, onclick) => {
-  const letters = 'ABCÇDEFGHIJKLMNOPQRSTUVWXYZ';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   hint ? hintElement.classList.remove('hidde') : hintElement.classList.add('hidde');
   hintElement.innerText = hint ? `Dica: ${hint}` : '';
 
@@ -78,9 +78,11 @@ export const createUI = async (length, hint, onclick) => {
     if (letterSubTexture) {
       let ox = parseInt(letterSubTexture.getAttribute('x'));
       let oy = parseInt(letterSubTexture.getAttribute('y'));
-      const letterBtn = letterButtons.namedItem(letters[i]);
+      const letterBtn = letterButtons[i];
       letterBtn.dataset.originalX = `${ox}`
       letterBtn.dataset.originalY = `${oy}`;
+      letterBtn.name = letters[i];
+      letterBtn.ariaLabel = letters[i];
       letterBtn.style.backgroundImage = `url(${spritesheet}.png)`;
       letterBtn.disabled = false;
       letterBtn.onclick = onclick;
@@ -92,12 +94,10 @@ export const createUI = async (length, hint, onclick) => {
   for (let i = 0; i < length; i++) {
     let ox = parseInt(letterSubTexture.getAttribute('x'));
     let oy = parseInt(letterSubTexture.getAttribute('y'));
-    let x = ox / 8;
-    let y = oy / 8;
-    const style = `background-position:-${x}px -${y}px;background-image: url(${spritesheet}.png);`;
-    html += `<div data-original-x='${ox} 'data-original-y='${oy}' style='${style}'class='letters__letter'></div>`;
+    const style = `background-image: url(${spritesheet}.png);`;
+    html += `<div data-original-x='${ox} 'data-original-y='${oy}' style='${style}'class='letter'></div>`;
   }
-  lettersElement.classList.remove('hidde');
+  keyboard.classList.remove('hidde');
   wordElement.classList.remove('hidde');
   wordElement.innerHTML = html;
   resize();
@@ -129,11 +129,11 @@ export const updateUI = (usedLetters, correctLetters, errors) => {
 
 export const resetUI = () => {
   document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'));
-  lettersElement.classList.add('hidde');
+  keyboard.classList.add('hidde');
   [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
   startMenuElement.classList.remove('hidde');
   wordElement.innerHTML = '';
-  playersElement.innerHTML = '';
+  playerElements.innerHTML = '';
   hintElement.classList.add('hidde');
   wordElement.classList.add('hidde');
   resultElement.classList.add('hidde');

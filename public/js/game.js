@@ -1,4 +1,5 @@
 export default class Game {
+  /** @param {{value:string; hint:string}} word  */
   constructor(word) {
     this.word = word;
     this.errors = 0;
@@ -32,9 +33,9 @@ export default class Game {
     this.usedLetters = [];
   }
   isWin() {
-    return this.correctLetters.join('') == this.word.value;
+    return this.correctLetters.join('') == this.word.value.replace(/\s/g, '');
   }
   isEnd() {
-    return this.correctLetters.join('') == this.word.value || this.errors == 6
+    return this.isWin() || this.errors == 6
   }
 }
