@@ -75,7 +75,8 @@ const onDisconnect = (socket) => {
     }
     if (game && !game.isEnd()) {
       console.log('update players');
-      io.emit('playerDisconnect', players);
+      const playerNames = players.map(({ name }) => name);
+      io.emit('playerDisconnect', playerNames);
     }
     if (players.length == 0) {
       game = null;
