@@ -78,7 +78,7 @@ export const createUI = async (length, hint, onclick) => {
     if (letterSubTexture) {
       let ox = parseInt(letterSubTexture.getAttribute('x'));
       let oy = parseInt(letterSubTexture.getAttribute('y'));
-      const letterBtn = letterButtons[i];
+      const letterBtn = letterButtons.namedItem(letters[i]);
       letterBtn.dataset.originalX = `${ox}`
       letterBtn.dataset.originalY = `${oy}`;
       letterBtn.name = letters[i];
@@ -95,7 +95,7 @@ export const createUI = async (length, hint, onclick) => {
     let ox = parseInt(letterSubTexture.getAttribute('x'));
     let oy = parseInt(letterSubTexture.getAttribute('y'));
     const style = `background-image: url(${spritesheet}.png);`;
-    html += `<div data-original-x='${ox} 'data-original-y='${oy}' style='${style}'class='letter'></div>`;
+    html += `<div data-original-x='${ox}' data-original-y='${oy}' style='${style}' class='letter'></div>`;
   }
   keyboard.classList.remove('hidde');
   wordElement.classList.remove('hidde');
