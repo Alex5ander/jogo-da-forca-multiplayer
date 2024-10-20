@@ -2,7 +2,8 @@ import express from 'express';
 import { Server, Socket } from 'socket.io';
 import { createServer } from 'http';
 import Game from './public/js/game.js';
-import words from './words.json' assert { type: 'json'};
+import fs from 'fs';
+const words = JSON.parse(fs.readFileSync('./words.json'));
 
 const PORT = process.env.PORT || 3000;
 
