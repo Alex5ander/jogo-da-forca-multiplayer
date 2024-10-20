@@ -1,5 +1,7 @@
 # Jogo da forca
 
+![screenshot](./screenshot.png)
+
   # Tecnologias Usadas
 
 - ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white) **HTML**
