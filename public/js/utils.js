@@ -134,6 +134,7 @@ export const resetUI = () => {
   startMenuElement.classList.remove('hidde');
   wordElement.innerHTML = '';
   playerElements.innerHTML = '';
+  playerElements.classList.add('hidde');
   hintElement.classList.add('hidde');
   wordElement.classList.add('hidde');
   resultElement.classList.add('hidde');
