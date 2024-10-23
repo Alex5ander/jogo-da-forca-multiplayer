@@ -1,7 +1,6 @@
 /** buttons */
 const startButton = document.getElementById('start');
 const keyboard = document.getElementById('keyboard');
-const letterButtons = document.getElementsByClassName('letter');
 const startMultiplayerButton = document.getElementById('start-multiplayer');
 const menuButton = document.getElementById('menu');
 const nextButton = document.getElementById('next');
@@ -22,7 +21,6 @@ const playerWinText = document.getElementById('player-win');
 
 export {
   keyboard,
-  letterButtons,
   wordElement,
   playerElements,
   startMenuElement,

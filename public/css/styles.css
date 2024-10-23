@@ -129,6 +129,8 @@ button {
 
 .word div {
   flex: none;
+  border-bottom: 1px solid #000;
+  text-align: center;
 }
 
 .hint {
@@ -151,7 +153,6 @@ button {
   width: 32px;
   background-size: 256px;
   display: inline-block;
-  background-repeat: no-repeat;
   font-weight: bolder;
   border: none;
   transition: transform 0.2s ease-in-out;
@@ -188,17 +189,10 @@ button {
   padding: .25em .5em;
   position: relative;
   text-transform: capitalize;
-  background-color: #3792fd;
-  color: #fff;
   box-shadow: var(--menu-shadow);
 }
 
 @media (min-width:768px) {
-  .letter {
-    width: 64px;
-    background-size: 512px;
-  }
-
   #hangman {
     margin: auto;
   }

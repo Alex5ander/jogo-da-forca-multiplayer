@@ -1,6 +1,6 @@
 import { createSocket } from './socket.js';
 import { playerElements, startMultiplayerButton, formName, menuButton, startMenuElement, formContainer } from './elements.js';
-import { playMusic, resize, updateUI, createUI, resetUI, showResultMultiplayer, loadAssets } from './utils.js';
+import { playMusic, updateUI, createUI, resetUI, showResultMultiplayer, loadAssets } from './utils.js';
 
 
 const createPlayerElement = (name) => {
@@ -66,7 +66,6 @@ formName.onreset = () => {
   startMenuElement.classList.remove('hidde');
 };
 
-window.onresize = resize;
 menuButton.onclick = resetUI;
 startMultiplayerButton.onclick = onStartMultiplayerClick;
 

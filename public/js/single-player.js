@@ -1,5 +1,5 @@
 import Game from './game.js';
-import { letterButtons, startMenuElement, startButton, resultElement, nextButton } from './elements.js';
+import { keyboard, startMenuElement, startButton, resultElement, nextButton } from './elements.js';
 import { playMusic, updateUI, createUI, showLose, showWin } from './utils.js';
 
 /** @type {Game} */
@@ -20,7 +20,7 @@ const onLetterClick = async (e) => {
   updateUI(usedLetters, correctLetters, errors);
 
   if (game.isEnd()) {
-    [...letterButtons].forEach(e => { e.disabled = true; e.onclick = null });
+    [...keyboard.children].forEach(e => { e.disabled = true; e.onclick = null });
   }
   if (errors == 6) {
     showLose();
