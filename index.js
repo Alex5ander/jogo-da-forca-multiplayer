@@ -97,6 +97,10 @@ const onJoin = (socket) => {
   });
 }
 
+io.engine.on('connection', e => {
+  e.request = null
+})
+
 io.on('connection', socket => {
   newWord();
   onJoin(socket);
