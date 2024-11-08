@@ -1,19 +1,5 @@
 import { wordElement, hintElement, startMenuElement, playerElements, resultElement, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText } from "./elements.js";
 /** @type {HTMLAudioElement} */
-let music;
-
-export const loadAssets = async () => {
-  const src = await (await fetch('/music')).text();
-  music = new Audio(src);
-};
-
-export const playMusic = async () => {
-  if (music.paused) {
-    music.loop = true;
-    music.volume = 0.05;
-    music.play();
-  }
-}
 
 /** 
  * @param {number} length

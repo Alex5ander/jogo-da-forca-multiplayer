@@ -1,6 +1,6 @@
 import Game from './game.js';
 import { keyboard, startMenuElement, startButton, resultElement, nextButton } from './elements.js';
-import { playMusic, updateUI, createUI, showLose, showWin } from './utils.js';
+import { updateUI, createUI, showLose, showWin } from './utils.js';
 
 /** @type {Game} */
 let game;
@@ -37,7 +37,6 @@ const start = async () => {
   startMenuElement.classList.add('hidde');
   game = new Game(word);
   createUI(word.value.length, word.hint, onLetterClick);
-  playMusic();
 }
 
 startButton.onclick = start;

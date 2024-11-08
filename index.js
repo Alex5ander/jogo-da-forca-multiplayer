@@ -12,7 +12,6 @@ const server = createServer(app);
 const io = new Server(server);
 
 app.use(express.static('public'));
-app.get('/music', (_, res) => res.send(process.env.MUSIC || 'none'));
 app.get('/random-word', (_, res) => res.json(words[Math.floor(Math.random() * words.length)]));
 
 class Player {
