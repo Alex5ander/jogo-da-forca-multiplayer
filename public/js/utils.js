@@ -94,3 +94,7 @@ export const showResultMultiplayer = (name) => {
   menuButton.classList.remove('hidde');
   nextButton.classList.add('hidde');
 }
+
+export const changeStyle = async () => {
+  // document.documentElement.style.setProperty('--primary-color', '#e74cdd');
+}

@@ -11,6 +11,14 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
+const n = {
+  backgroundImage: "",
+  backgroundColor: "",
+  wordColor: "",
+  letterBackgroundColor: "",
+  letterColor: ""
+}
+
 app.use(express.static('public'));
 app.get('/random-word', (_, res) => res.json(words[Math.floor(Math.random() * words.length)]));
 

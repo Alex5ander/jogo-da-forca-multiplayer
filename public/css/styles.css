@@ -1,13 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
+:root {
+  --primary-color: #000;
+  --container-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --menu-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Rubik", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   user-select: none;
-  --container-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  --menu-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 body {
@@ -130,7 +134,7 @@ button {
 
 .word div {
   flex: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid var(--primary-color);
   text-align: center;
 }
 
@@ -138,6 +142,7 @@ button {
   font-weight: bold;
   box-shadow: var(--container-shadow);
   padding: 1em;
+  color: var(--primary-color);
 }
 
 .keyboard {
@@ -150,7 +155,7 @@ button {
 }
 
 .keyboard button {
-  border: 4px solid #000;
+  border: 4px solid var(--primary-color);
 }
 
 .letter {
