@@ -1,5 +1,5 @@
 import { createSocket } from './socket.js';
-import { playerElements, startMultiplayerButton, formName, menuButton, startMenuElement, formContainer } from './elements.js';
+import { playerElements, startMultiplayerButton, formName, menuButton, startMenuDialog, formNameDialog } from './elements.js';
 import { updateUI, createUI, resetUI, showResultMultiplayer } from './utils.js';
 
 
@@ -34,8 +34,7 @@ const onUpdate = ({ usedLetters, correctLetters, errors, result }) => {
 }
 
 const startMultiplayer = async (name) => {
-  startMenuElement.classList.add('hidde');
-
+  formNameDialog.close();
   const socket = createSocket();
   socket.join(name, (data) => onJoin(data, (e) => socket.guess(e.target.name)));
   socket.onUpdate(onUpdate);
@@ -44,8 +43,8 @@ const startMultiplayer = async (name) => {
 }
 
 const onStartMultiplayerClick = () => {
-  formContainer.classList.remove('hidde');
-  startMenuElement.classList.add('hidde');
+  formNameDialog.showModal();
+  startMenuDialog.close();
 }
 
 formName.addEventListener('submit', e => {
@@ -53,12 +52,11 @@ formName.addEventListener('submit', e => {
   const { value } = e.target.name;
   if (value == undefined || value.length == 0 && value.length <= 10) { return };
   startMultiplayer(value);
-  formContainer.classList.add('hidde');
 });
 
 formName.onreset = () => {
-  formContainer.classList.add('hidde');
-  startMenuElement.classList.remove('hidde');
+  formNameDialog.close();
+  startMenuDialog.showModal();
 };
 
 menuButton.onclick = resetUI;

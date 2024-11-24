@@ -1,4 +1,4 @@
-import { wordElement, hintElement, startMenuElement, playerElements, resultElement, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText } from "./elements.js";
+import { wordElement, hintElement, startMenuDialog, playerElements, resultDialog, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText, inputColor } from "./elements.js";
 /** @type {HTMLAudioElement} */
 
 /** 
@@ -53,17 +53,17 @@ export const resetUI = () => {
   document.querySelectorAll('.fill').forEach(e => e.classList.remove('fill'));
   keyboard.classList.add('hidde');
   [...keyboard.children].forEach(e => { e.disabled = true; e.onclick = null });
-  startMenuElement.classList.remove('hidde');
+  startMenuDialog.showModal();
   wordElement.innerHTML = '';
   playerElements.innerHTML = '';
   playerElements.classList.add('hidde');
   hintElement.classList.add('hidde');
   wordElement.classList.add('hidde');
-  resultElement.classList.add('hidde');
+  resultDialog.close();
 }
 
 export const showWin = () => {
-  resultElement.classList.remove('hidde');
+  resultDialog.showModal();
   youWinText.classList.remove('hidde');
   gameOverText.classList.add('hidde');
   playerWinText.classList.add('hidde');
@@ -73,7 +73,7 @@ export const showWin = () => {
 }
 
 export const showLose = () => {
-  resultElement.classList.remove('hidde');
+  resultDialog.showModal();
   youWinText.classList.add('hidde');
   gameOverText.classList.remove('hidde');
   playerWinText.classList.add('hidde');
@@ -86,7 +86,7 @@ export const showLose = () => {
 /** @param {string} name */
 export const showResultMultiplayer = (name) => {
   [...keyboard.childNodes].forEach(e => { e.disabled = true; e.onclick = null });
-  resultElement.classList.remove('hidde');
+  resultDialog.showModal();
   youWinText.classList.add('hidde');
   gameOverText.classList.add('hidde');
   playerWinText.classList.remove('hidde');
@@ -96,5 +96,17 @@ export const showResultMultiplayer = (name) => {
 }
 
 export const changeStyle = async () => {
-  // document.documentElement.style.setProperty('--primary-color', '#e74cdd');
+  const params = new URLSearchParams(window.location.search);
+  const color = params.get('color');
+  if (color) {
+    document.documentElement.style.setProperty('--primary-color', decodeURIComponent(color));
+    inputColor.value = decodeURIComponent(color);
+  }
 }
+
+inputColor.oninput = () => {
+  history.replaceState({ color: inputColor.value }, "", `/?color=${encodeURIComponent(inputColor.value)}`);
+  changeStyle();
+}
+
+changeStyle();

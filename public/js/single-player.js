@@ -1,5 +1,5 @@
 import Game from './game.js';
-import { keyboard, startMenuElement, startButton, resultElement, nextButton } from './elements.js';
+import { keyboard, startMenuDialog, startButton, resultDialog, nextButton } from './elements.js';
 import { updateUI, createUI, showLose, showWin } from './utils.js';
 
 /** @type {Game} */
@@ -7,7 +7,7 @@ let game;
 let score = 0;
 
 const next = () => {
-  resultElement.classList.add('hidde');
+  resultDialog.close();
   start();
 }
 
@@ -32,9 +32,9 @@ const onLetterClick = async (e) => {
 }
 
 const start = async () => {
+  startMenuDialog.close();
   /** @type {{value:string; hint:string}} word  */
   const word = await (await fetch('/random-word')).json();
-  startMenuElement.classList.add('hidde');
   game = new Game(word);
   createUI(word.value.length, word.hint, onLetterClick);
 }

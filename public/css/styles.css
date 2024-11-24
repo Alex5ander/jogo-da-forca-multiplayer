@@ -42,6 +42,7 @@ button {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   border: 1px solid;
+  color: var(--primary-color);
 }
 
 .form-name {
@@ -69,30 +70,31 @@ button {
 
 .form-name button:last-child {
   width: 32px;
-  height: 32px;
   border-top-right-radius: .5em;
   border-bottom-right-radius: .5em;
 }
 
-.start-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  justify-content: center;
-  align-items: center;
-  box-shadow: var(--container-shadow);
-  padding: 1em;
-  background-color: #fff;
+dialog::backdrop {
+  background-color: var(--primary-color);
+  opacity: 0.3;
 }
 
-.overlay {
-  background-color: #00000088;
-  position: fixed;
-  inset: 0;
+dialog {
+  color: var(--primary-color);
+  border: 1px var(--primary-color) solid;
+  flex-direction: column;
+  gap: 1em;
+}
+
+dialog[open] {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+}
+
+#input-color {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
 }
 
 .result {
@@ -110,11 +112,18 @@ button {
 
 .primary-button {
   font-weight: bold;
-  color: #000;
+  font-size: 1.5em;
+  color: var(--primary-color);
+  outline-color: var(--primary-color);
   border-radius: .5em;
   padding: .5em;
   transition: 0.2s ease-in-out;
   box-shadow: var(--menu-shadow);
+  display: inline-block;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .primary-button:hover {
@@ -135,6 +144,7 @@ button {
 .word div {
   flex: none;
   border-bottom: 1px solid var(--primary-color);
+  color: var(--primary-color);
   text-align: center;
 }
 
@@ -211,8 +221,12 @@ button {
   display: none !important;
 }
 
+#hangman {
+  fill: var(--primary-color);
+}
+
 .fill {
-  fill: #000;
+  fill: var(--primary-color);
 }
 
 .shake {
