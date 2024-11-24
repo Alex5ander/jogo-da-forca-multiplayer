@@ -104,9 +104,14 @@ export const changeStyle = async () => {
   }
 }
 
+let lastTime = performance.now();
+
 inputColor.oninput = () => {
-  history.replaceState({ color: inputColor.value }, "", `/?color=${encodeURIComponent(inputColor.value)}`);
-  changeStyle();
+  if (performance.now() - lastTime > 500) {
+    history.replaceState({ color: inputColor.value }, "", `/?color=${encodeURIComponent(inputColor.value)}`);
+    changeStyle();
+    lastTime = performance.now();
+  }
 }
 
 changeStyle();
