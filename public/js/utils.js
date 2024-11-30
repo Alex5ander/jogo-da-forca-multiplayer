@@ -95,7 +95,7 @@ export const showResultMultiplayer = (name) => {
   nextButton.classList.add('hidde');
 }
 
-export const changeStyle = async () => {
+const changeStyle = async () => {
   const params = new URLSearchParams(window.location.search);
   const color = params.get('color');
   if (color) {

@@ -34,7 +34,6 @@ const onUpdate = ({ usedLetters, correctLetters, errors, result }) => {
 }
 
 const startMultiplayer = async (name) => {
-  formNameDialog.close();
   const socket = createSocket();
   socket.join(name, (data) => onJoin(data, (e) => socket.guess(e.target.name)));
   socket.onUpdate(onUpdate);
@@ -52,6 +51,7 @@ formName.addEventListener('submit', e => {
   const { value } = e.target.name;
   if (value == undefined || value.length == 0 && value.length <= 10) { return };
   startMultiplayer(value);
+  formNameDialog.close();
 });
 
 formName.onreset = () => {
