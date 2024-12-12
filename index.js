@@ -3,6 +3,7 @@ import { Server, Socket } from 'socket.io';
 import { createServer } from 'http';
 import Game from './public/js/game.js';
 import fs from 'fs';
+import authRouter from './src/routers/authRouter.js'
 const words = JSON.parse(fs.readFileSync('./words.json'));
 
 const PORT = process.env.PORT || 3000;
@@ -12,7 +13,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 app.use(express.static('public'));
-
+app.use(authRouter);
 app.get('/random-word', (_, res) => res.json(words[Math.floor(Math.random() * words.length)]));
 
 class Player {
