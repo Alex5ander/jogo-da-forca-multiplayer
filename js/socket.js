@@ -8,7 +8,7 @@ import { io } from "socket.io-client";
 */
 
 export const createSocket = () => {
-  const socket = io('http://localhost:3000');
+  const socket = io('https://jogo-da-forca-multiplayer-server.glitch.me/');
   /** @param {string} playername @param {onJoin} callback */
   const join = (playername, callback) => socket.emit('join', playername, callback);
   /** @param {onUpdate} callback */
