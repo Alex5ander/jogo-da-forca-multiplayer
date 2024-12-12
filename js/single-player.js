@@ -2,7 +2,7 @@ import Game from './game.js';
 import { keyboard, startMenuDialog, startButton, resultDialog, nextButton } from './elements.js';
 import { updateUI, createUI, showLose, showWin } from './utils.js';
 
-const origin = 'http://localhost:3000';
+const origin = 'https://jogo-da-forca-multiplayer-server.glitch.me/';
 
 /** @type {Game} */
 let game;
