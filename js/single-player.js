@@ -2,6 +2,8 @@ import Game from './game.js';
 import { keyboard, startMenuDialog, startButton, resultDialog, nextButton } from './elements.js';
 import { updateUI, createUI, showLose, showWin } from './utils.js';
 
+const origin = 'http://localhost:3000';
+
 /** @type {Game} */
 let game;
 let score = 0;
@@ -34,7 +36,7 @@ const onLetterClick = async (e) => {
 const start = async () => {
   startMenuDialog.close();
   /** @type {{value:string; hint:string}} word  */
-  const word = await (await fetch('/random-word')).json();
+  const word = await (await fetch(`${origin}/random-word`)).json();
   game = new Game(word);
   createUI(word.value.length, word.hint, onLetterClick);
 }

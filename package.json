@@ -5,22 +5,22 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch index.js echo http://localhost:3000",
-    "start": "node index.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.21.1",
     "jogo-da-forca": "file:",
-    "jose": "^5.9.6",
-    "socket.io": "^4.8.0",
-    "sqlite3": "^5.1.7",
-    "zod": "^3.23.8"
+    "socket.io-client": "^4.8.1"
   },
   "engines": {
     "node": "^16"
+  },
+  "devDependencies": {
+    "vite": "^6.0.3"
   }
 }

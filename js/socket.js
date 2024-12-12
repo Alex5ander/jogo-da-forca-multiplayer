@@ -1,3 +1,4 @@
+import { io } from "socket.io-client";
 
 /** 
 * @callback onNewPlayerJoinCallback
@@ -7,7 +8,7 @@
 */
 
 export const createSocket = () => {
-  const socket = io();
+  const socket = io('http://localhost:3000');
   /** @param {string} playername @param {onJoin} callback */
   const join = (playername, callback) => socket.emit('join', playername, callback);
   /** @param {onUpdate} callback */
