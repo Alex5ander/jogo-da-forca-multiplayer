@@ -108,7 +108,7 @@ let lastTime = performance.now();
 
 inputColor.oninput = () => {
   if (performance.now() - lastTime > 500) {
-    history.replaceState({ color: inputColor.value }, "", `/?color=${encodeURIComponent(inputColor.value)}`);
+    history.replaceState({ color: inputColor.value }, "", `/jogo-da-forca-multiplayer/?color=${encodeURIComponent(inputColor.value)}`);
     changeStyle();
     lastTime = performance.now();
   }
