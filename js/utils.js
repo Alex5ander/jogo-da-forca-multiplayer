@@ -1,4 +1,4 @@
-import { wordElement, hintElement, startMenuDialog, playerElements, resultDialog, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText, inputColor } from "./elements.js";
+import { wordElement, hintElement, startMenuDialog, playerElements, resultDialog, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText, inputColor, loader } from "./elements.js";
 /** @type {HTMLAudioElement} */
 
 /** 
@@ -6,6 +6,8 @@ import { wordElement, hintElement, startMenuDialog, playerElements, resultDialog
  * @param {string} hint
  */
 export const createUI = async (length, hint, onclick) => {
+  loader.showModal();
+
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   hint ? hintElement.classList.remove('hidde') : hintElement.classList.add('hidde');
   hintElement.innerText = hint ? `Dica: ${hint}` : '';
@@ -47,6 +49,8 @@ export const updateUI = (usedLetters, correctLetters, errors) => {
   for (let i = 0; i < errors; i++) {
     man[i].classList.add('fill');
   }
+
+  loader.close();
 }
 
 export const resetUI = () => {

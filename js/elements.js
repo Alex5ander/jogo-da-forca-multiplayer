@@ -32,7 +32,11 @@ const gameOverText = document.getElementById('game-over');
 const youWinText = document.getElementById('you-win');
 const playerWinText = document.getElementById('player-win');
 
+/** @type {HTMLDialogElement} */
+const loader = document.getElementById('loader');
+
 export {
+  loader,
   inputColor,
   keyboard,
   wordElement,
