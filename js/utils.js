@@ -1,13 +1,11 @@
-import { wordElement, hintElement, startMenuDialog, playerElements, resultDialog, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText, inputColor, loader } from "./elements.js";
+import { wordElement, hintElement, startMenuDialog, playerElements, resultDialog, menuButton, nextButton, keyboard, youWinText, gameOverText, playerWinText, inputColor } from "./elements.js";
 /** @type {HTMLAudioElement} */
 
 /** 
  * @param {number} length
  * @param {string} hint
  */
-export const createUI = async (length, hint, onclick) => {
-  loader.showModal();
-
+export const createUI = (length, hint, onclick) => {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   hint ? hintElement.classList.remove('hidde') : hintElement.classList.add('hidde');
   hintElement.innerText = hint ? `Dica: ${hint}` : '';
@@ -28,8 +26,6 @@ export const createUI = async (length, hint, onclick) => {
   keyboard.classList.remove('hidde');
   wordElement.classList.remove('hidde');
   wordElement.innerHTML = html;
-
-  loader.close();
 }
 
 /** 

@@ -1,5 +1,5 @@
 import { createSocket } from './socket.js';
-import { playerElements, startMultiplayerButton, formName, menuButton, startMenuDialog, formNameDialog } from './elements.js';
+import { playerElements, startMultiplayerButton, formName, menuButton, startMenuDialog, formNameDialog, loader } from './elements.js';
 import { updateUI, createUI, resetUI, showResultMultiplayer } from './utils.js';
 
 
@@ -22,10 +22,11 @@ const updatePlayersList = (players) => {
   players.forEach(player => playerElements.innerHTML += createPlayerElement(player));
 }
 
-const onJoin = async ({ hint, length, players, usedLetters, correctLetters, errors }, callback) => {
-  await createUI(length, hint, callback);
+const onJoin = ({ hint, length, players, usedLetters, correctLetters, errors }, callback) => {
+  createUI(length, hint, callback);
   updateUI(usedLetters, correctLetters, errors);
   updatePlayersList(players);
+  loader.close();
 }
 
 const onUpdate = ({ usedLetters, correctLetters, errors, result }) => {
@@ -46,6 +47,7 @@ const callbackFactory = (socket) => {
 }
 
 const startMultiplayer = async (name) => {
+  loader.showModal();
   const socket = createSocket();
   socket.join(name, (data) => onJoin(data, ({ target }) => callbackFactory(socket)(target)));
   socket.onUpdate(onUpdate);

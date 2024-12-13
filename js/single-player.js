@@ -1,5 +1,5 @@
 import Game from './game.js';
-import { keyboard, startMenuDialog, startButton, resultDialog, nextButton } from './elements.js';
+import { keyboard, startMenuDialog, startButton, resultDialog, nextButton, loader } from './elements.js';
 import { updateUI, createUI, showLose, showWin } from './utils.js';
 
 const origin = 'https://jogo-da-forca-multiplayer-server.glitch.me/';
@@ -34,11 +34,13 @@ const onLetterClick = async (e) => {
 }
 
 const start = async () => {
+  loader.showModal();
   startMenuDialog.close();
   /** @type {{value:string; hint:string}} word  */
   const word = await (await fetch(`${origin}/random-word`)).json();
   game = new Game(word);
   createUI(word.value.length, word.hint, onLetterClick);
+  loader.close();
 }
 
 startButton.onclick = start;
