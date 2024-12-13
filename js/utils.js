@@ -28,6 +28,8 @@ export const createUI = async (length, hint, onclick) => {
   keyboard.classList.remove('hidde');
   wordElement.classList.remove('hidde');
   wordElement.innerHTML = html;
+
+  loader.close();
 }
 
 /** 
@@ -49,8 +51,6 @@ export const updateUI = (usedLetters, correctLetters, errors) => {
   for (let i = 0; i < errors; i++) {
     man[i].classList.add('fill');
   }
-
-  loader.close();
 }
 
 export const resetUI = () => {
