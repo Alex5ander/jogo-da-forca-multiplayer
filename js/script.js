@@ -36,13 +36,11 @@ const onUpdate = ({ usedLetters, correctLetters, errors, result }) => {
 
 const callbackFactory = (socket) => {
   return ({ name }) => {
-    if (!loader.open) {
-      loader.showModal();
-      socket.guess(name, (response) => {
-        onUpdate(response);
-        loader.close();
-      })
-    }
+    loader.showModal();
+    socket.guess(name, (response) => {
+      onUpdate(response);
+      loader.close();
+    })
   }
 }
 
