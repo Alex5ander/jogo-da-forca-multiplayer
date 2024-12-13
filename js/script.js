@@ -32,22 +32,16 @@ const onJoin = ({ hint, length, players, usedLetters, correctLetters, errors }, 
 const onUpdate = ({ usedLetters, correctLetters, errors, result }) => {
   updateUI(usedLetters, correctLetters, errors);
   result && showResultMultiplayer(result);
-}
-
-const callbackFactory = (socket) => {
-  return ({ name }) => {
-    loader.showModal();
-    socket.guess(name, (response) => {
-      onUpdate(response);
-      loader.close();
-    })
-  }
+  loader.close();
 }
 
 const startMultiplayer = async (name) => {
   loader.showModal();
   const socket = createSocket();
-  socket.join(name, (data) => onJoin(data, ({ target }) => callbackFactory(socket)(target)));
+  socket.join(name, (data) => onJoin(data, ({ target }) => {
+    loader.showModal();
+    socket.guess(target.name);
+  }));
   socket.onUpdate(onUpdate);
   socket.onNewPlayerJoin(updatePlayersList);
   socket.onPlayerDisconnect(updatePlayersList);
